@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tribe Loyalty App</title>
+
+  <!-- Google Fonts (Example: Poppins) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* RESET & BASE STYLES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8f6ff; /* Soft lavender background */
+      color: #333;
+      line-height: 1.5;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* WRAPPER */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #9B51E0; /* Purple accent */
+    }
+    .logo img {
+  height: 40px; /* Adjust size of the logo */
+  width: auto;
+    }
+    .logo-footer img{
+  height: 90px; /* Adjust size of the logo */
+  width: auto;
+    }
+    nav ul {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+    }
+    nav a {
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #7e42bb;
+    }
+    .btn-header {
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      background: #b68aff;
+      color: #fff;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .btn-header:hover {
+      background: #a07ce0;
+    }
+
+    /* HERO (Single Image) */
+    .hero {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+/*      padding: 3rem 0;*/
+      gap: 2rem;
+    }
+    .hero-content {
+      flex: 1;
+      padding-right: 2rem;
+    }
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      color: #333;
+    }
+    .hero-subtitle {
+      font-size: 1rem;
+      color: #666;
+      max-width: 500px;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .hero-cta {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #b68aff;
+      color: #fff;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .hero-cta:hover {
+      background: #a07ce0;
+    }
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-image img {
+/*      border-radius: 1rem;*/
+/*      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);*/
+      max-width: 700px;
+    }
+
+    /* BRAND LOGOS */
+    .brands {
+      text-align: center;
+      padding: 3rem 0;
+    }
+    .brands h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .brands-subtitle {
+      max-width: 600px;
+      margin: 0.5rem auto 2rem auto;
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+   justify-content: center; /* Centers horizontally */
+  align-content: center;
+  place-content: center;
+    }
+    .brand-card {
+      background: #fff;
+        /* Force the image to be clipped within the rounded corners: */
+      overflow: hidden;
+      border-radius: 0.75rem;
+      height: 70px;
+      width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .brand-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+      border-radius: 0.75rem;
+    }
+    .brand-card img {
+
+     width: 100%;
+  height: 100%;
+  object-fit: cover; /* or 'contain' if you prefer letterboxing */
+  display: block;
+    }
+
+    /* PHONE FEATURES */
+    .phone-features {
+      padding: 3rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap; 
+    }
+    .feature-column {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+    .feature-item h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 0.3rem;
+    }
+    .feature-item p {
+      color: #666;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      margin-bottom: 0;
+    }
+    .phone-mockup {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .phone-mockup img {
+      max-width: 450px;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    /* HOW IT WORKS */
+    .how-it-works {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+      padding: 3rem 0;
+    }
+    .hiw-left,
+    .hiw-right {
+      flex: 1;
+    }
+    .hiw-left img {
+      max-width: 550px;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .hiw-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .hiw-steps {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: start;
+      gap: 0.75rem;
+    }
+    .hiw-steps span {
+      background: #b68aff;
+      color: #fff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+    }
+    .hiw-steps p {
+      color: #555;
+      line-height: 1.6;
+      font-size: 0.95rem;
+      margin-top: 0.15rem;
+    }
+
+    /* TESTIMONIALS - CONTINUOUS CAROUSEL */
+    .testimonials {
+      padding: 3rem 0;
+      text-align: center;
+    }
+    .testimonials h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .stars {
+  color: #f6c945; /* Gold color for stars */
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+    .testimonials-subtitle {
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .carousel-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+    .carousel-track {
+      display: flex;
+      white-space: nowrap;
+      transition: none; /* We'll animate via JS */
+    }
+    .testimonial {
+      flex-shrink: 0;
+      width: 300px;
+      margin-right: 1rem; /* visible gap between cards */
+      box-sizing: border-box;
+    }
+    .testimonial-inner {
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .testimonial-text {
+      font-size: 0.9rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+    .testimonial-author {
+      font-weight: 700;
+      color: #111;
+      font-size: 0.9rem;
+      text-align: right;
+    }
+    .quote-icon {
+      font-size: 1.2rem;
+      color: #b68aff;
+      margin-right: 0.3rem;
+    }
+
+    /* SHARE SECTION */
+    .share-section {
+      padding: 2rem 1rem;
+      text-align: center;
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin: 3rem 0;
+    }
+    .share-section h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .share-section p {
+      max-width: 500px;
+      margin: 0 auto 2rem auto;
+      color: #666;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+    .share-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #b68aff;
+      color: #fff;
+      padding: 0.7rem 1.4rem;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .share-btn:hover {
+      background: #a07ce0;
+    }
+
+    /* GET THE APP SECTION */
+    .get-app-section {
+      background: #fff;
+      padding: 3rem 2rem;
+      border-radius: 1rem;
+      margin-top: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .get-app-content {
+      flex: 1;
+    }
+    .get-app-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .get-app-subtitle {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      max-width: 500px;
+    }
+    .store-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .store-btn img {
+      width: 150px;
+      height: auto;
+      transition: transform 0.2s;
+    }
+    .store-btn:hover img {
+      transform: scale(1.05);
+    }
+    .get-app-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .get-app-image img {
+      max-width: 300px;
+      border-radius: 1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #f2f2f2;
+      margin-top: 2rem;
+      padding: 2rem 0;
+    }
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+    }
+    .footer-column {
+      flex: 1;
+      min-width: 150px;
+    }
+    .footer-column h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    .footer-column ul {
+      list-style: none;
+    }
+    .footer-column li a {
+      color: #666;
+      font-size: 0.95rem;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    .footer-column li a:hover {
+      color: #9B51E0;
+    }
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+      }
+      .hero-content {
+        padding-right: 0;
+        text-align: center;
+      }
+      .hero-image img {
+        max-width: 250px;
+      }
+      .phone-features {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .feature-column {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .feature-item {
+        width: 45%;
+        margin: 1rem 0;
+      }
+      .how-it-works {
+        flex-direction: column;
+        text-align: center;
+      }
+      .testimonial {
+        width: 200px; /* narrower on mobile */
+      }
+      .get-app-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .get-app-image img {
+        max-width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <header>
+      <div class="logo">
+        <img 
+            src="images/logo-small.png"
+            alt="" 
+          />
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#brands">Brands</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+        </ul>
+      </nav>
+      <!-- <a href="#get-the-app" class="btn-header">Download</a> -->
+    </header>
+
+    <!-- HERO SECTION (Single Image) -->
+    <section id="home" class="hero">
+            <div class="hero-image">
+        <img 
+          src="images/hero.png"
+          alt="Loyalty App Hero"
+        />
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">
+          The All-In-One Loyalty Card App
+        </h1>
+        <p class="hero-subtitle">
+          Store all your reward and membership cards on your phone. 
+          Discover the easiest way to collect points, coupons, and more—right at checkout.
+        </p>
+             <div class="store-buttons">
+          <!-- Apple Store -->
+          <a href="https://apps.apple.com/us/app/tribe-rewards-digital-wallet/id1495876209?itsct=apps_box_badge&itscg=30200" class="store-btn">
+            <img 
+              src="images/apple-store.png"
+              alt="Download on the App Store"
+            />
+          </a>
+          <!-- Google Play -->
+<!--           <a href="#" class="store-btn">
+            <img 
+              src="images/playstore.png"
+              alt="Get It on Google Play"
+            />
+          </a> -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- BRAND LOGOS -->
+    <section id="brands" class="brands">
+      <h2>Add Cards From Your Favorite Brands</h2>
+      <p class="brands-subtitle">
+        Easily scan rewards cards from these popular stores and hundreds more.
+      </p>
+      <div class="">
+      <div class="brand-grid">
+        <!-- Example brand logos -->
+        <div class="brand-card">
+          <img 
+            src="images/brands/za/checkers.png"
+            alt="checkers" 
+          />
+        </div>
+        <div class="brand-card">
+          <img 
+            src="images/brands/za/virginactive.png"
+            alt="" 
+          />
+        </div>
+        <div class="brand-card">
+          <img 
+            src="images/brands/za/mrprice.png"
+            alt="" 
+          />
+        </div>
+        <div class="brand-card">
+          <img 
+            src="images/brands/za/exclusivebooks.png"
+            alt="" 
+          />
+        </div>
+        <div class="brand-card">
+          <img 
+            src="images/brands/za/clicks.png"
+            alt="" 
+          />
+        </div>
+        <div class="brand-card">
+          <img 
+            src="images/brands/za/woolworths.png"
+            alt="" 
+          />
+        </div>
+        <div class="brand-card">
+          <img 
+            src="images/brands/za/dischem.png"
+            alt="" 
+          />
+        </div>
+        <div class="brand-card">
+          <img 
+            src="images/brands/za/makro.png"
+            alt="" 
+          />
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <!-- PHONE FEATURES -->
+    <section id="features" class="phone-features">
+      <!-- Left column of bullet items -->
+      <div class="feature-column">
+        <div class="feature-item">
+          <h3>Fast</h3>
+          <p>Add cards in seconds & enjoy lightning speed using your loyalty cards.</p>
+        </div>
+        <div class="feature-item">
+          <h3>Clean</h3>
+          <p>No ads, no tracking—just your cards.</p>
+        </div>
+        <div class="feature-item">
+          <h3>Easy</h3>
+          <p>Intuitively designed with SA's most loved brands.</p>
+        </div>
+      </div>
+
+      <!-- Center Phone Mockup -->
+      <div class="phone-mockup">
+        <img
+          src="images/summary.png"
+          alt="Phone Mockup"
+        />
+      </div>
+
+      <!-- Right column of bullet items -->
+      <div class="feature-column">
+        <div class="feature-item">
+          <h3>Simple</h3>
+          <p>Quickly import store cards from other wallets, like Stocard.</p>
+        </div>
+        <div class="feature-item">
+          <h3>Secure</h3>
+          <p>Your cards are linked to your account, even when you change phones.</p>
+        </div>
+        <div class="feature-item">
+          <h3>Versatile</h3>
+          <p>Store any barcode—loyalty, gift cards, coupons, and more.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="how-it-works">
+      <div class="hiw-left">
+        <img
+          src="images/use_tribe.png"
+          alt="Tribe App Mockup"
+        />
+      </div>
+      <div class="hiw-right">
+        <h2 class="hiw-title">How It Works</h2>
+        <div class="hiw-steps">
+          <span>1</span>
+          <p>Download Tribe from the App Store or Google Play</p>
+        </div>
+        <div class="hiw-steps">
+          <span>2</span>
+          <p>Scan your loyalty cards using your phone camera.</p>
+        </div>
+        <div class="hiw-steps">
+          <span>3</span>
+          <p>Show your digital card at checkout to collect or redeem points.</p>
+        </div>
+        <div class="hiw-steps">
+          <span>4</span>
+          <p>Lighten your wallet and never lose out on points again</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS - CONTINUOUS CAROUSEL (NO DUPLICATE) -->
+    <section id="testimonials" class="testimonials">
+      <h2>Hear Why People Love Tribe</h2>
+      <p class="testimonials-subtitle">
+        A continuous stream of real user feedback—scrolling slowly so you can read as it passes by.
+      </p>
+
+      <div class="carousel-container" id="carouselContainer">
+        <div class="carousel-track" id="carouselTrack">
+          <!-- 10 items total -->
+          <div class="testimonial">
+            <div class="testimonial-inner">
+                <div class="stars">
+                  ★★★★★
+                </div>
+              <p class="testimonial-text">
+                <span class="quote-icon">“</span>Tribe saved me from carrying a dozen cards!
+              </p>
+              <p class="testimonial-author">- Glinda</p>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial-inner">
+                <div class="stars">
+                  ★★★★★
+                </div>
+              <p class="testimonial-text">
+                <span class="quote-icon">“</span>My scanning speed at checkout is insane now!
+              </p>
+              <p class="testimonial-author">- Nadia</p>
+            </div>
+          </div>
+          <div class="testimonial">
+
+            <div class="testimonial-inner">
+                <div class="stars">
+                  ★★★★★
+                </div>
+              <p class="testimonial-text">
+                <span class="quote-icon">“</span>No more clutter in my wallet—this app is a lifesaver.
+              </p>
+              <p class="testimonial-author">- Erin</p>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial-inner">
+                <div class="stars">
+                  ★★★★★
+                </div>
+              <p class="testimonial-text">
+                <span class="quote-icon">“</span>Love how easy it is to import cards from Stocard.
+              </p>
+              <p class="testimonial-author">- Leann</p>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial-inner">
+                <div class="stars">
+                  ★★★★★
+                </div>
+              <p class="testimonial-text">
+                <span class="quote-icon">“</span>Great for gift cards, too. My wallet’s never been lighter.
+              </p>
+              <p class="testimonial-author">- Bonang</p>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial-inner">
+                <div class="stars">
+                  ★★★★★
+                </div>
+              <p class="testimonial-text">
+                <span class="quote-icon">“</span>I never miss collecting points now—Tribe is awesome!
+              </p>
+              <p class="testimonial-author">- Jaco</p>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial-inner">
+                <div class="stars">
+                  ★★★★★
+                </div>
+              <p class="testimonial-text">
+                <span class="quote-icon">“</span>Just scan & store. Couldn’t be simpler.
+              </p>
+              <p class="testimonial-author">- Alex</p>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial-inner">
+                <div class="stars">
+                  ★★★★★
+                </div>
+              <p class="testimonial-text">
+                <span class="quote-icon">“</span>I also store my gift cards.
+              </p>
+              <p class="testimonial-author">- Tina</p>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial-inner">
+                <div class="stars">
+                  ★★★★★
+                </div>
+              <p class="testimonial-text">
+                <span class="quote-icon">“</span>Couldn’t live without it. My everyday shopping companion!
+              </p>
+              <p class="testimonial-author">- Thabane</p>
+            </div>
+          </div>
+        </div> <!-- .carousel-track -->
+      </div> <!-- .carousel-container -->
+    </section>
+<section>
+  <img src="images/bg_people.png" alt="Brands and business owners love how Tribe brings their collective power together" >
+</section>
+    <!-- SHARE THIS SECTION -->
+    <section class="share-section">
+      <h2>Share Tribe With a Friend</h2>
+      <p>
+        Know someone juggling too many loyalty cards? Help them simplify their wallet—share Tribe below!
+      </p>
+<div class="share-buttons">
+  <button class="share-btn" onclick="shareEmail()">Share via Email</button>
+  <button class="share-btn" onclick="shareFacebook()">Share on Facebook</button>
+  <button class="share-btn" onclick="shareTwitter()">Share on Twitter</button>
+</div>
+    </section>
+
+    <!-- GET THE APP SECTION -->
+    <section id="get-the-app" class="get-app-section">
+      <div class="get-app-content">
+        <h2 class="get-app-title">Get Your New Mobile Wallet</h2>
+        <p class="get-app-subtitle">
+          Join over 49 million active consumers worldwide and download Tribe for free.
+        </p>
+        <div class="store-buttons">
+          <!-- Apple Store -->
+          <a href="https://apps.apple.com/us/app/tribe-rewards-digital-wallet/id1495876209?itsct=apps_box_badge&itscg=30200" class="store-btn">
+            <img 
+              src="images/apple-store.png"
+              alt="Download on the App Store"
+            />
+          </a>
+          <!-- Google Play -->
+<!--           <a href="#" class="store-btn">
+            <img 
+              src="images/playstore.png"
+              alt="Get It on Google Play"
+            />
+          </a> -->
+        </div>
+      </div>
+      <div class="get-app-image">
+        <img 
+          src="images/img_1.png"
+          alt="Tribe App Phone Mockup"
+        />
+      </div>
+    </section>
+
+  </div><!-- .container -->
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-column">
+        <div class="logo-footer">
+          <img 
+              src="images/logo-full.png"
+              alt="" 
+            />
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Help</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Follow Us</h3>
+        <ul>
+          <li><a href="https://www.instagram.com/triberewards/">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Tribe. All Rights Reserved.
+    </div>
+  </footer>
+
+  <!-- JS: Continuous Carousel With Spacing, No Duplicates -->
+  <script>
+  (function() {
+    const track = document.getElementById('carouselTrack');
+    const container = document.getElementById('carouselContainer');
+
+    let speed = 1; // px per frame
+    let position = 0;
+    
+    function step() {
+      // Shift track left by "speed" pixels
+      position -= speed;
+      track.style.transform = `translateX(${position}px)`;
+
+      // Check if the first item is fully out of view
+      const firstItem = track.children[0];
+      const itemRect = firstItem.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+
+      // Calculate total width = item + margin
+      const itemStyles = window.getComputedStyle(firstItem);
+      const marginRight = parseFloat(itemStyles.marginRight) || 0;
+      const totalItemWidth = itemRect.width + marginRight;
+
+      if (itemRect.right < containerRect.left) {
+        // Re-append the first item to the end
+        track.appendChild(firstItem);
+        // Offset position to avoid jump
+        position += totalItemWidth;
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  })();
+
+  function shareEmail() {
+  const subject = encodeURIComponent("Check out this awesome app!");
+  const body = encodeURIComponent("Hi, I found this app and thought you'd like it. If you looking for a reliable app to store your loyalty cards! Check it out: www.triberewardsapp.com");
+  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+}
+
+function shareFacebook() {
+  const url = encodeURIComponent("www.triberewardsapp.com");
+  const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  window.open(fbShareUrl, "_blank");
+}
+
+function shareTwitter() {
+  const url = encodeURIComponent("www.triberewardsapp.com");
+  const text = encodeURIComponent("Looking to store your cloyalty cards on your phone. Check out the tribe rewards app I found!");
+  const twitterShareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+  window.open(twitterShareUrl, "_blank");
+}
+  </script>
+
+</body>
+</html>

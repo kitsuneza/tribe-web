@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine Typewriter with Image</title>
+  <style>
+    /* --- Basic Reset and Page Layout --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #C3B298;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: sans-serif;
+    }
+    .card {
+      text-align: center;
+    }
+    h1 {
+      color: #D84343;
+      margin-bottom: 20px;
+    }
+    p {
+      margin-top: 10px;
+      color: #333;
+    }
+
+    /* --- Typewriter Container --- */
+    .typewriter-container {
+      position: relative;
+      width: 300px; /* adjust to the width of your image */
+      margin: 0 auto 20px;
+    }
+    /* The PNG image for your typewriter */
+    .typewriter-image {
+      width: 100%;
+      display: block;
+    }
+    /* --- The Paper that Ejects --- */
+    .paper {
+      position: absolute;
+      top: 60px;
+      width: 110px; /* adjust as needed */
+      background: white;
+      
+      padding: 5px;
+      box-sizing: border-box;
+      /* Position this so it sits inside the paper tray area of your typewriter image */
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+/*      transition: transform 0.5s;*/
+      z-index: 2;
+    }
+    .paper p {
+      margin: 5px 0;
+      display: none;
+      text-align: center;
+      font-weight: bold;
+    }
+    /* Paper slide-out steps (adjust the translateY values to suit your image) */
+    .card[data-step="1"] .paper {
+      transform: translateX(-50%) translateY(-30%);
+    }
+    .card[data-step="2"] .paper {
+      transform: translateX(-50%) translateY(-66%);
+    }
+    .card[data-step="3"] .paper {
+      transform: translateX(-50%) translateY(-66%);
+    }
+    /* Reveal text lines progressively */
+    .card[data-step="1"] .line1,
+    .card[data-step="2"] .line1,
+    .card[data-step="3"] .line1 {
+      display: block;
+    }
+    .card[data-step="2"] .line2,
+    .card[data-step="3"] .line2 {
+      display: block;
+    }
+    .card[data-step="3"] .line3 {
+      display: block;
+    }
+
+    /* --- Hearts that Appear on Final Screen --- */
+    .hearts-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .card[data-step="3"] .hearts-container {
+      display: block;
+    }
+    .heart {
+      position: absolute;
+      font-size: 2rem;
+      color: red;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-50px) scale(1.2);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" data-step="0">
+    <h1>Will you be my Valentine?</h1>
+    <div class="typewriter-container">
+      <!-- Replace "typewriter.png" with your image file -->
+      <img class="typewriter-image" src="typewriter.png" alt="Typewriter">
+      <!-- The paper that will slide out -->
+      <div class="paper">
+        <p class="line1">Good!</p>
+        <p class="line2">Because you're just</p>
+        <p class="line3">My TYPE</p>
+      </div>
+    </div>
+    <p>Type "YES"</p>
+    <!-- Hearts container appears after final key press -->
+    <div class="hearts-container">
+      <span class="heart" style="left:10%; top:80%;">♥</span>
+      <span class="heart" style="left:50%; top:90%;">♥</span>
+      <span class="heart" style="left:80%; top:70%;">♥</span>
+      <span class="heart" style="left:30%; top:60%;">♥</span>
+      <span class="heart" style="left:70%; top:50%;">♥</span>
+    </div>
+  </div>
+
+  <script>
+    /*
+      Minimal script to advance through steps:
+      0: initial screen
+      1: after Y/y
+      2: after E/e
+      3: after S/s (final screen, hearts appear)
+    */
+    const card = document.querySelector('.card');
+    let step = 0;
+    const sequence = ['Y', 'E', 'S'];
+    document.addEventListener('keydown', (e) => {
+      const key = e.key.toUpperCase();
+      if (step < 3 && key === sequence[step]) {
+        step++;
+        card.setAttribute('data-step', step);
+      }
+    });
+  </script>
+</body>
+</html>

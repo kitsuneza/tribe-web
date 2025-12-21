@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.triberewardsapp.tribe",
+      "sha256_cert_fingerprints": [
+        "E2:F1:0C:D2:23:09:00:3A:0C:F0:FC:3A:31:12:FA:F4:39:5D:7A:87:85:E2:4D:E9:6D:82:E0:56:C5:2C:7F:68"
+      ]
+    }
+  }
+]

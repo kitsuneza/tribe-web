@@ -30,11 +30,19 @@
       padding: 0;
       box-sizing: border-box;
     }
+    /* CRITICAL FIX: Prevent horizontal scroll */
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
       background: #f8f6ff; /* Soft lavender background */
       color: #333;
       line-height: 1.5;
+      position: relative;
     }
     a {
       text-decoration: none;
@@ -50,6 +58,7 @@
       width: 90%;
       max-width: 1200px;
       margin: 0 auto;
+      overflow-x: hidden; /* Prevent container overflow */
     }
 
     /* HEADER */
@@ -58,6 +67,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.5rem 0;
+      flex-wrap: wrap; /* Allow wrapping on mobile */
+      gap: 1rem;
     }
     .logo {
       font-weight: 700;
@@ -108,6 +119,7 @@
     .hero-content {
       flex: 1;
       padding-right: 2rem;
+      min-width: 0; /* Prevent flex overflow */
     }
     .hero-title {
       font-size: 2.5rem;
@@ -139,10 +151,13 @@
       flex: 1;
       display: flex;
       justify-content: center;
+      min-width: 0; /* Prevent flex overflow */
     }
     .hero-image img {
 /*      border-radius: 1rem;*/
 /*      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);*/
+      width: 100%;
+      height: auto;
       max-width: 700px;
     }
 
@@ -179,7 +194,8 @@
       overflow: hidden;
       border-radius: 0.75rem;
       height: 70px;
-      width: 120px;
+      width: 100%; /* Changed from fixed 120px */
+      max-width: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -206,7 +222,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 1.5rem;
-      flex-wrap: wrap; 
+      flex-wrap: wrap;
     }
     .feature-column {
       flex: 1;
@@ -285,6 +301,7 @@
     .testimonials {
       padding: 3rem 0;
       text-align: center;
+      overflow: hidden; /* Critical for containing carousel */
     }
     .testimonials h2 {
       font-size: 1.8rem;
@@ -528,6 +545,39 @@
         max-width: 200px;
       }
     }
+
+    /* ADDITIONAL MOBILE FIXES */
+    @media (max-width: 768px) {
+      /* Fix images to not overflow */
+      .hero-image img,
+      .phone-mockup img,
+      .hiw-left img,
+      .get-app-image img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+      }
+
+      /* Stop carousel animation on mobile to prevent overflow */
+      .carousel-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .carousel-track {
+        animation: none !important;
+      }
+
+      /* Ensure brand cards scale properly */
+      .brand-grid {
+        padding: 0 0.5rem;
+      }
+
+      /* Stack navigation on mobile */
+      nav ul {
+        flex-wrap: wrap;
+      }
+    }
   </style>
 </head>
 <body>
@@ -537,9 +587,9 @@
     <!-- HEADER -->
     <header>
       <div class="logo">
-        <img 
+        <img
             src="images/logo-small.png"
-            alt="" 
+            alt=""
           />
       </div>
       <nav>
@@ -557,7 +607,7 @@
     <!-- HERO SECTION (Single Image) -->
     <section id="home" class="hero">
             <div class="hero-image">
-        <img 
+        <img
           src="images/hero.png"
           alt="Loyalty App Hero"
         />
@@ -567,31 +617,31 @@
           The All-In-One Loyalty Card App
         </h1>
         <p class="hero-subtitle">
-          Store all your reward and membership cards on your phone. 
+          Store all your reward and membership cards on your phone.
           Discover the easiest way to collect points, coupons, and more—right at checkout.
         </p>
              <div class="store-buttons">
           <!-- Apple Store -->
           <a href="https://apps.apple.com/us/app/tribe-rewards-digital-wallet/id1495876209?itsct=apps_box_badge&itscg=30200" class="store-btn">
-            <img 
+            <img
               src="images/apple-store.png"
               alt="Download on the App Store"
             />
           </a>
           <!-- Google Play -->
            <a href="https://play.google.com/store/apps/details?id=com.triberewardsapp.tribe" class="store-btn">
-            <img 
+            <img
               src="images/playstore.png"
               alt="Get It on Google Play"
             />
           </a>
           <!-- Huawei Play -->
            <a href="https://url.cloud.huawei.com/udHOZUtfAk?shareTo=qrcode" class="store-btn">
-            <img 
+            <img
               src="images/Huawei.png"
               alt="Get It on Huawei App Gallery"
             />
-          </a>              
+          </a>
         </div>
       </div>
 
@@ -607,51 +657,51 @@
       <div class="brand-grid">
         <!-- Example brand logos -->
         <div class="brand-card">
-          <img 
+          <img
             src="images/brands/za/checkers.png"
-            alt="checkers" 
+            alt="checkers"
           />
         </div>
         <div class="brand-card">
-          <img 
+          <img
             src="images/brands/za/virginactive.png"
-            alt="" 
+            alt=""
           />
         </div>
         <div class="brand-card">
-          <img 
+          <img
             src="images/brands/za/mrprice.png"
-            alt="" 
+            alt=""
           />
         </div>
         <div class="brand-card">
-          <img 
+          <img
             src="images/brands/za/exclusivebooks.png"
-            alt="" 
+            alt=""
           />
         </div>
         <div class="brand-card">
-          <img 
+          <img
             src="images/brands/za/clicks.png"
-            alt="" 
+            alt=""
           />
         </div>
         <div class="brand-card">
-          <img 
+          <img
             src="images/brands/za/woolworths.png"
-            alt="" 
+            alt=""
           />
         </div>
         <div class="brand-card">
-          <img 
+          <img
             src="images/brands/za/dischem.png"
-            alt="" 
+            alt=""
           />
         </div>
         <div class="brand-card">
-          <img 
+          <img
             src="images/brands/za/makro.png"
-            alt="" 
+            alt=""
           />
         </div>
       </div>
@@ -869,29 +919,29 @@
         <div class="store-buttons">
           <!-- Apple Store -->
           <a href="https://apps.apple.com/us/app/tribe-rewards-digital-wallet/id1495876209?itsct=apps_box_badge&itscg=30200" class="store-btn">
-            <img 
+            <img
               src="images/apple-store.png"
               alt="Download on the App Store"
             />
           </a>
           <!-- Google Play -->
            <a href="https://play.google.com/store/apps/details?id=com.triberewardsapp.tribe" class="store-btn">
-            <img 
+            <img
               src="images/playstore.png"
               alt="Get It on Google Play"
             />
           </a>
           <!-- Huawei Play -->
            <a href="https://url.cloud.huawei.com/udHOZUtfAk?shareTo=qrcode" class="store-btn">
-            <img 
+            <img
               src="images/Huawei.png"
               alt="Get It on Huawei App Gallery"
             />
-          </a>   
+          </a>
         </div>
       </div>
       <div class="get-app-image">
-        <img 
+        <img
           src="images/img_1.png"
           alt="Tribe App Phone Mockup"
         />
@@ -905,9 +955,9 @@
     <div class="container footer-content">
       <div class="footer-column">
         <div class="logo-footer">
-          <img 
+          <img
               src="images/logo-full.png"
-              alt="" 
+              alt=""
             />
         </div>
       </div>
@@ -940,9 +990,20 @@
     const track = document.getElementById('carouselTrack');
     const container = document.getElementById('carouselContainer');
 
+    // Check if we're on mobile
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      // Mobile - make carousel scrollable horizontally
+      container.style.overflowX = 'auto';
+      container.style.webkitOverflowScrolling = 'touch';
+      return; // Don't run animation on mobile
+    }
+
+    // Desktop - run animation
     let speed = 1; // px per frame
     let position = 0;
-    
+
     function step() {
       // Shift track left by "speed" pixels
       position -= speed;

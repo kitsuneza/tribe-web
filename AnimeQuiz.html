@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anime Personality Quiz (Prototype)</title>
+  <style>
+    :root { --bg:#0b0f17; --card:#121a2a; --muted:#9aa6bd; --text:#eaf0ff; --accent:#7aa2ff; --danger:#ff6b6b; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 20% 10%, #132247 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .wrap { width: min(820px, 100%); }
+    .header {
+      display:flex; align-items:baseline; justify-content:space-between; gap:16px;
+      margin-bottom: 14px;
+    }
+    .title { font-size: 22px; font-weight: 800; letter-spacing: 0.2px; }
+    .sub { color: var(--muted); font-size: 13px; }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+    .progress {
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      margin-bottom: 14px;
+    }
+    .bar {
+      flex: 1;
+      height: 10px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar > div {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), #9d7aff);
+      border-radius: 999px;
+      transition: width 220ms ease;
+    }
+    .count { color: var(--muted); font-size: 13px; white-space: nowrap; }
+    .q { font-size: 18px; font-weight: 750; margin: 6px 0 12px; line-height: 1.25; }
+    .options { display:grid; gap:10px; margin: 10px 0 4px; }
+    label.opt {
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.12);
+      cursor:pointer;
+      transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+    }
+    label.opt:hover { transform: translateY(-1px); border-color: rgba(122,162,255,0.55); }
+    input[type="radio"] { margin-top: 3px; accent-color: var(--accent); }
+    .opt span { display:block; }
+    .opt .letter { color: var(--muted); font-size: 12px; margin-bottom: 2px; }
+    .opt .text { font-size: 15px; line-height: 1.25; }
+    .actions {
+      display:flex; justify-content:space-between; gap:10px; margin-top: 16px;
+    }
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 11px 14px;
+      font-weight: 750;
+      cursor:pointer;
+      color: var(--text);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.14);
+      transition: transform 120ms ease, background 120ms ease, opacity 120ms ease;
+    }
+    button:hover { transform: translateY(-1px); background: rgba(255,255,255,0.14); }
+    button.primary { background: linear-gradient(90deg, var(--accent), #9d7aff); border-color: rgba(255,255,255,0.18); }
+    button.primary:disabled { opacity: 0.45; cursor:not-allowed; transform:none; }
+    button.ghost { background: transparent; }
+    .hint { margin-top: 10px; color: var(--muted); font-size: 12px; }
+    .result {
+      display:grid;
+      grid-template-columns: 220px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .result img {
+      width: 220px; height: 280px;
+      object-fit: contain;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .badge {
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(122,162,255,0.16);
+      border: 1px solid rgba(122,162,255,0.30);
+      color: #dbe6ff;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    .big { font-size: 26px; font-weight: 900; margin: 6px 0 6px; }
+    .desc { color: var(--muted); font-size: 14px; line-height: 1.45; margin-top: 6px; }
+    .smallprint { color: rgba(154,166,189,0.85); font-size: 11px; margin-top: 10px; }
+    @media (max-width: 720px){
+      .result { grid-template-columns: 1fr; }
+      .result img { width: 100%; height: 280px; }
+    }
+
+    /* --- Added: Start screen + share UI (minimal changes, fits existing design) --- */
+    .startScreen {
+      text-align: center;
+      display: grid;
+      gap: 14px;
+      padding: 8px 4px 2px;
+    }
+    .startTitle {
+      font-size: 30px;
+      font-weight: 950;
+      letter-spacing: 0.2px;
+      margin: 0;
+    }
+    .startSub {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0;
+      line-height: 1.4;
+    }
+    .startImage {
+      width: min(520px, 100%);
+      height: auto;
+      aspect-ratio: 16 / 9;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.10);
+      display: grid;
+      place-items: center;
+    }
+    .startImage img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .startCtaRow {
+      display: grid;
+      gap: 8px;
+      justify-items: center;
+      margin-top: 6px;
+    }
+    .startBtn {
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-size: 16px;
+      min-width: 220px;
+    }
+    .madeBy {
+      margin-top: 10px;
+      color: rgba(154,166,189,0.85);
+      font-size: 12px;
+    }
+    .shareRow {
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+      align-items: center;
+    }
+    .shareRow button {
+      flex: 1 1 auto;
+      min-width: 170px;
+    }
+    .shareHint {
+      color: rgba(154,166,189,0.85);
+      font-size: 11px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div>
+        <div class="title">Anime Personality Quiz</div>
+        <div class="sub">Find out which anime character you are!</div>
+      </div>
+      <div class="sub" id="modeTag">Quiz</div>
+    </div>
+
+    <div class="card" id="card"></div>
+  </div>
+
+  <script>
+    // --- Quiz data (categories + points are internal only) ---
+    // Categories: confidence, strategic, forgiving, social, caring
+
+    const questions = [
+      {
+        text: "You see somebody crying what do you do?",
+        options: [
+          { label: "spit in there face", cat: "caring", pts: 0 },
+          { label: "walk away and smile", cat: "caring", pts: 2 },
+          { label: "sit down with them and talk", cat: "caring", pts: 6 },
+          { label: "ask them if they are okay then leave", cat: "caring", pts: 4 },
+        ]
+      },
+      {
+        text: "A big man comes and challenges you to a fight what do you do?",
+        options: [
+          { label: "Accept the challenge because you know you will win", cat: "confidence", pts: 8 },
+          { label: "Accept and try to do your best", cat: "confidence", pts: 4 },
+          { label: "Run away from the battle", cat: "confidence", pts: 2 },
+          { label: "Go to the battle for five then run away", cat: "confidence", pts: 3 },
+        ]
+      },
+      {
+        text: "Someone killed your friend by accident",
+        options: [
+          { label: "send them to jail", cat: "forgiving", pts: 2 },
+          { label: "Say it’s fine and they should kill more", cat: "forgiving", pts: 6 },
+          { label: "Tell them it was just a mistake", cat: "forgiving", pts: 4 },
+          { label: "kill them!", cat: "forgiving", pts: 1 },
+        ]
+      },
+      {
+        text: "Your friends invited you to a party what do you do?",
+        options: [
+          { label: "Go to the party", cat: "social", pts: 8 },
+          { label: "Tell them your sick and go there another time", cat: "social", pts: 4 },
+          { label: "Go there but leave early", cat: "social", pts: 6 },
+          { label: "stay home and watch anime", cat: "social", pts: 1 },
+        ]
+      },
+      {
+        text: "You have a meeting with the bad guys what do you do?",
+        options: [
+          { label: "Say your sick", cat: "strategic", pts: 1 },
+          { label: "Go there and get them on your side", cat: "strategic", pts: 6 },
+          { label: "Tell them they got the wrong person", cat: "strategic", pts: 3 },
+          { label: "Lie to them and say Let’s work together", cat: "strategic", pts: 5 },
+        ]
+      },
+      {
+        text: "What is your greatest fear?",
+        options: [
+          { label: "Someone you care about gets ill", cat: "caring", pts: 4 },
+          { label: "Nobody cares about your ideas or opinions", cat: "strategic", pts: 4 },
+          { label: "Nobody thinks your brave enough", cat: "confidence", pts: 4 },
+          { label: "Nobody forgives you for making a mistake", cat: "forgiving", pts: 4 },
+        ]
+      },
+      {
+        text: "How do your friends describe you?",
+        options: [
+          { label: "Caring but weak", cat: "caring", pts: 4 },
+          { label: "Forgiving but naive", cat: "forgiving", pts: 4 },
+          { label: "Smart but arrogant", cat: "strategic", pts: 4 },
+          { label: "Confidant but cocky", cat: "confidence", pts: 4 },
+        ]
+      },
+      {
+        text: "What is your role in the group?",
+        options: [
+          { label: "strategist behind the scenes", cat: "strategic", pts: 1 },
+          { label: "The caring one that helps everyone", cat: "caring", pts: 1 },
+          { label: "The social one who keeps us together", cat: "social", pts: 1 },
+          { label: "The confident leader", cat: "confidence", pts: 1 },
+        ]
+      },
+      {
+        text: "You stumble across an enemy what do you do?",
+        options: [
+          { label: "Go there and fight!", cat: "confidence", pts: 3 },
+          { label: "First think of a plan", cat: "strategic", pts: 3 },
+          { label: "Try be friends with the enemy", cat: "social", pts: 3 },
+          { label: "See how the enemy is feeling", cat: "caring", pts: 3 },
+        ]
+      },
+      {
+        text: "What is your favourite Anime?",
+        options: [
+          { label: "Classroom of the elite", cat: "strategic", pts: 2 },
+          { label: "Naruto", cat: "social", pts: 2 },
+          { label: "Attack on titan", cat: "confidence", pts: 2 },
+          { label: "Rouroni kenshin", cat: "forgiving", pts: 2 },
+        ]
+      }
+      //----------------------------
+            //TEST SECTION BEGINS
+      // {
+      //   text: "TEST You see somebody crying what do you do?",
+      //   options: [
+      //     { label: "spit in there face", cat: "strategic", pts: 8 },
+      //     { label: "walk away and smile", cat: "caring", pts: 2 },
+      //     { label: "sit down with them and talk", cat: "caring", pts: 6 },
+      //     { label: "ask them if they are okay then leave", cat: "caring", pts: 4 },
+      //   ]
+      // },
+      // {
+      //   text: "TESTYou see somebody crying what do you do?",
+      //   options: [
+      //     { label: "spit in there face", cat: "confidence", pts: 7 },
+      //     { label: "walk away and smile", cat: "caring", pts: 2 },
+      //     { label: "sit down with them and talk", cat: "caring", pts: 6 },
+      //     { label: "ask them if they are okay then leave", cat: "caring", pts: 4 },
+      //   ]
+      // },
+      // {
+      //   text: "TESTYou see somebody crying what do you do?",
+      //   options: [
+      //     { label: "spit in there face", cat: "caring", pts: 9 },
+      //     { label: "walk away and smile", cat: "caring", pts: 2 },
+      //     { label: "sit down with them and talk", cat: "caring", pts: 6 },
+      //     { label: "ask them if they are okay then leave", cat: "caring", pts: 4 },
+      //   ]
+      // },
+      // {
+      //   text: "TESTYou see somebody crying what do you do?",
+      //   options: [
+      //     { label: "spit in there face", cat: "social", pts: 8 },
+      //     { label: "walk away and smile", cat: "caring", pts: 2 },
+      //     { label: "sit down with them and talk", cat: "caring", pts: 6 },
+      //     { label: "ask them if they are okay then leave", cat: "caring", pts: 4 },
+      //   ]
+      // },
+      // {
+      //   text: "TEST You see somebody crying what do you do?",
+      //   options: [
+      //     { label: "spit in there face", cat: "forgiving", pts: 7 },
+      //     { label: "walk away and smile", cat: "caring", pts: 2 },
+      //     { label: "sit down with them and talk", cat: "caring", pts: 6 },
+      //     { label: "ask them if they are okay then leave", cat: "caring", pts: 4 },
+      //   ]
+      //},
+
+        //TEST SECTION ENDS
+      //----------------------------
+
+    ];
+
+    // --- Character profiles (normalized typos: forging -> forgiving) ---
+    // Note: "Kuniharo Saiki" assumed intended as "Kusuo Saiki"
+    // Note: Naruto line "forgiving = 7 social" treated as forgiving = 7
+    const characters = [
+      {
+        name: "Light Yagami",
+        img: "https://static.wikitide.net/deathbattlewiki/b/b2/Portrait.lightyagami.png",
+        scores: { confidence: 9, strategic: 9, caring: 0, social: 4, forgiving: 1 },
+        show:"Death Note",
+        describe:"Brilliant, calculating, and intensely driven to impose his vision of justice. Confident to the point of arrogance, he will outsmart anyone to stay in control."
+      },
+      {
+        name: "Anya Forger",
+        img: "https://static.wikia.nocookie.net/spy-x-family9171/images/f/ff/Anya_Forger_Anime.png/revision/latest?cb=20230112004645",
+        scores: { strategic: 4, confidence: 6, caring: 5, social: 8, forgiving: 7 },
+        show:"Spyxfamily",
+        describe:"Cheerful, mischievous, and surprisingly perceptive for her age. She deeply cares about her family and just wants everyone to stay together."
+      },
+      {
+        name: "Saitama",
+        img: "https://www.dexerto.com/cdn-image/wp-content/uploads/2022/06/14/c1818c4c4de1a2d35550f21448aa0a2b233fe9d107cc353665efa25891f1988b._RI_.jpg?width=1200&quality=60&format=auto",
+        scores: { strategic: 3, confidence: 8, caring: 5, social: 4, forgiving: 6 },
+        show:"One punch man",
+        describe:"Laid-back, humble, and bored by his own overwhelming power. He’s heroic at heart but treats life with deadpan indifference and dry humor."
+      },
+      {
+        name: "Jinshi",
+        img: "https://static.wikia.nocookie.net/kusuriya-no-hitorigoto/images/1/19/Jinshi_%28Anime%29.png/revision/latest?cb=20231022152724",
+        scores: { strategic: 5, confidence: 8, caring: 6, social: 8, forgiving: 6 },
+        show:"Apothecary diaries",
+        describe:"Charming, strategic, and always three steps ahead of everyone else.He hides a sharp, calculating mind behind a graceful and playful exterior."
+      },
+      {
+        name: "Elizabeth Liones",
+        img: "https://static.wikia.nocookie.net/villainstournament/images/1/1f/Elizabeth_Liones.jpg/revision/latest?cb=20190418165959",
+        scores: { strategic: 4, confidence: 3, caring: 6, social: 5, forgiving: 8 },
+        show:"Seven deadly sins",
+        describe:"Gentle, kind-hearted, and endlessly compassionate toward others.Her empathy and emotional strength inspire people even in the darkest times."
+      },
+      {
+        name: "Naruto Uzumaki",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8QHIgdQ9QEnAMLObEuvdBy-DjaY5bpldzAg&s",
+        scores: { strategic: 6, confidence: 7, caring: 9, social: 8, forgiving: 7 },
+        show:"Naruto",
+        describe:"Loud, optimistic, and fiercely loyal to his friends.He never gives up and believes everyone deserves a second chance."
+      },
+      {
+        name: "Maomao",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-JNRceHJF3nL3NqHFwjfj-z0icFesMhuzLw&s",
+        scores: { strategic: 8, confidence: 6, caring: 5, social: 5, forgiving: 6 },
+        show:"Apothecary diaries",
+        describe:"harp-witted, curious, and fiercely independent, with a love for solving mysteries. She’s blunt and practical, but quietly caring beneath her sarcastic exterior."
+      },
+      {
+        name: "Kuniharu Saiki",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfjPQ9K-ZBWeLktK0EdKiYmuS53woHit7Cow&s",
+        scores: { strategic: 0, confidence: 1, caring: 3, social: 3, forgiving: 5 },
+        show:"The disasterous life saiki k",
+        describe:"Carefree, goofy, and completely oblivious to danger. He’s warm-hearted and social, even when his enthusiasm causes chaos."
+      }
+    ];
+
+    const CATS = ["confidence", "strategic", "forgiving", "social", "caring"];
+
+    // --- State ---
+    // Added: -1 means start screen
+    let step = -1;
+    const answers = Array(questions.length).fill(null); // store chosen option index
+
+    function newScoreVector() {
+      return { confidence:0, strategic:0, forgiving:0, social:0, caring:0 };
+    }
+
+    function computeUserScores() {
+      const s = newScoreVector();
+      answers.forEach((optIndex, qi) => {
+        if (optIndex === null) return;
+        const opt = questions[qi].options[optIndex];
+        s[opt.cat] += opt.pts;
+      });
+      return s;
+    }
+
+    function distance(a, b) {
+      let sum = 0;
+      for (const c of CATS) sum += Math.abs((a[c] ?? 0) - (b[c] ?? 0));
+      return sum;
+    }
+
+    function pickClosestCharacter(userScores) {
+      let best = Infinity;
+      let tied = [];
+      for (const ch of characters) {
+        const d = distance(userScores, ch.scores);
+        if (d < best) { best = d; tied = [ch]; }
+        else if (d === best) tied.push(ch);
+      }
+      // tie break random
+      return tied[Math.floor(Math.random() * tied.length)];
+    }
+
+    function TESTpickClosestCharacter(userScores) {
+
+      // tie break random
+      return characters[0];
+    }
+
+    // --- UI ---
+    const card = document.getElementById("card");
+    const modeTag = document.getElementById("modeTag");
+
+    // Added: start screen image URL (change later if you want)
+    const START_IMAGE_URL = "https://i.ytimg.com/vi/rAqPeZEYACM/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCV42GS2sIvKt3DnBAsgAVnPtwaSw";
+
+    function renderStartScreen() {
+      modeTag.textContent = "Start";
+
+      card.innerHTML = `
+        <div class="startScreen">
+          <div>
+            <div class="startTitle">Anime Personality Quiz</div>
+            <p class="startSub">Answer 10 quick questions and find out which anime character matches you best.</p>
+          </div>
+
+          <div class="startImage">
+            <img src="${START_IMAGE_URL}" alt="Anime quiz cover image" loading="lazy" />
+          </div>
+
+          <div class="startCtaRow">
+            <button class="primary startBtn" id="startBtn">Start</button>
+            <div class="madeBy">made by Alex</div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("startBtn").onclick = () => {
+        step = 0;
+        render();
+      };
+    }
+
+    // Added: sharing helpers (Web Share API + fallbacks)
+    async function shareResult(winnerName) {
+      const shareText = `I got ${winnerName} on this Anime Personality Quiz. Try it and see who you get!`;
+      const shareUrl = window.location.href;
+
+      // Mobile-friendly Web Share (WhatsApp, etc.)
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: "Anime Personality Quiz",
+            text: shareText,
+            url: shareUrl
+          });
+          return;
+        } catch (e) {
+          // user cancelled or share failed, fall through to other options
+        }
+      }
+
+      // Fallback: copy link
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        alert("Link copied. Share it with a friend!");
+      } catch (e) {
+        prompt("Copy this link to share:", shareUrl);
+      }
+    }
+
+    function openFacebookShare() {
+      const shareUrl = encodeURIComponent(window.location.href);
+      const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+      window.open(fbUrl, "_blank", "noopener,noreferrer");
+    }
+
+    function openWhatsAppShare(winnerName) {
+      const text = encodeURIComponent(`I got ${winnerName} on this Anime Personality Quiz. Try it and see who you get! ${window.location.href}`);
+      const waUrl = `https://wa.me/?text=${text}`;
+      window.open(waUrl, "_blank", "noopener,noreferrer");
+    }
+
+    function render() {
+      // Added: start screen support
+      if (step === -1) {
+        renderStartScreen();
+        return;
+      }
+
+      modeTag.textContent = (step < questions.length) ? "Quiz" : "Result";
+
+      if (step >= questions.length) {
+        const userScores = computeUserScores();
+        const winner = pickClosestCharacter(userScores);
+
+        card.innerHTML = `
+          <div class="badge">Result</div>
+          <div class="result">
+            <img src="${winner.img}" alt="${winner.name}" loading="lazy" />
+            <div>
+              <div class="big">You got : ${escapeHtml(winner.name)}</div>
+              <div>from ${escapeHtml(winner.show)}</div>
+              <div class="desc">
+                ${escapeHtml(winner.describe)}
+              </div>
+
+              <!-- Added: share options -->
+              <div class="shareRow">
+                <button class="primary" id="shareBtn">Share with a friend</button>
+                <button class="ghost" id="waBtn">Share on WhatsApp</button>
+                <button class="ghost" id="fbBtn">Post to Facebook</button>
+              </div>
+              <div class="shareHint">Tip: On phones, “Share with a friend” will open your share menu (WhatsApp, Messages, etc.).</div>
+
+              <div class="actions" style="margin-top:14px;">
+                <button class="primary" id="restartBtn">Restart</button>
+              </div>
+              <div class="smallprint">
+                Alex is final decision maker on all answers!
+              </div>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("restartBtn").onclick = () => {
+          step = -1; // go back to start screen
+          for (let i=0;i<answers.length;i++) answers[i] = null;
+          render();
+        };
+
+        document.getElementById("reviewBtn").onclick = () => {
+          step = 0;
+          render();
+        };
+
+        // Added: share button hooks
+        document.getElementById("shareBtn").onclick = () => shareResult(winner.name);
+        document.getElementById("fbBtn").onclick = () => openFacebookShare();
+        document.getElementById("waBtn").onclick = () => openWhatsAppShare(winner.name);
+
+        return;
+      }
+
+      const q = questions[step];
+      const pct = Math.round(((step) / questions.length) * 100);
+      const chosen = answers[step];
+
+      card.innerHTML = `
+        <div class="progress">
+          <div class="bar" aria-hidden="true"><div style="width:${pct}%;"></div></div>
+          <div class="count">Question ${step + 1} of ${questions.length}</div>
+        </div>
+
+        <div class="q">${escapeHtml(q.text)}</div>
+
+        <form class="options" id="form">
+          ${q.options.map((o, i) => `
+            <label class="opt">
+              <input type="radio" name="opt" value="${i}" ${chosen === i ? "checked" : ""} />
+              <span>
+                <span class="letter">${String.fromCharCode(65+i)}</span>
+                <span class="text">${escapeHtml(o.label)}</span>
+              </span>
+            </label>
+          `).join("")}
+        </form>
+
+        <div class="actions">
+          <button class="ghost" id="backBtn" ${step === 0 ? "disabled" : ""}>Back</button>
+          <button class="primary" id="nextBtn" ${chosen === null ? "disabled" : ""}>
+            ${step === questions.length - 1 ? "Finish" : "Next"}
+          </button>
+        </div>
+
+        <div class="hint">Pick one option to continue.</div>
+      `;
+
+      const form = document.getElementById("form");
+      const nextBtn = document.getElementById("nextBtn");
+      const backBtn = document.getElementById("backBtn");
+
+      form.onchange = (e) => {
+        const val = form.opt.value;
+        answers[step] = Number(val);
+        nextBtn.disabled = false;
+      };
+
+      backBtn.onclick = (e) => {
+        e.preventDefault();
+        if (step > 0) step--;
+        render();
+      };
+
+      nextBtn.onclick = (e) => {
+        e.preventDefault();
+        if (answers[step] === null) return;
+        step++;
+        render();
+      };
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, s => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[s]));
+    }
+
+    render();
+  </script>
+</body>
+</html>

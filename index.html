@@ -1,1056 +1,1779 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tribe Loyalty App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tribe Rewards - Free Loyalty Card Wallet App | Store All Rewards Cards on Your Phone</title>
+    <meta name="description" content="Stocard is gone. Tribe Rewards fills the gap with a simple loyalty card wallet. Store all your rewards cards on your phone, scan at checkout, works offline. 100% free, no ads.">
+    <meta name="keywords" content="loyalty card wallet, digital wallet, store loyalty cards on phone, barcode scanner app, offline loyalty cards, what happened to stocard, stocard replacement, stocard shut down, rewards card app, klarna loyalty cards">
 
-  <!-- Google Fonts (Example: Poppins) -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-    rel="stylesheet"
-  />
-<!-- Standard Favicon -->
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://triberewards.app/">
+    <meta property="og:title" content="Tribe Rewards - Digital Loyalty Card Wallet App">
+    <meta property="og:description" content="Stocard is gone. Tribe fills the gap with a simple loyalty card wallet. Store rewards cards on your phone, scan at checkout. Works offline, 100% ad-free.">
+    <meta property="og:image" content="https://triberewards.app/og-image.jpg">
 
-<!-- Apple Touch Icon (for iPhones and iPads) -->
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://triberewards.app/">
+    <meta property="twitter:title" content="Tribe Rewards - Digital Loyalty Card Wallet App">
+    <meta property="twitter:description" content="Stocard is gone. Tribe fills the gap with a simple loyalty card wallet. Store rewards cards on your phone, scan at checkout. Works offline, 100% ad-free.">
+    <meta property="twitter:image" content="https://triberewards.app/og-image.jpg">
 
-<!-- Android Chrome Icons -->
-<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    <!-- Additional SEO -->
+    <meta name="author" content="Tribe Rewards">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://triberewards.app/">
 
-<!-- Web App Manifest (For Android & PWA) -->
-<link rel="manifest" href="site.webmanifest">
-  <style>
-    /* RESET & BASE STYLES */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    /* CRITICAL FIX: Prevent horizontal scroll */
-    html, body {
-      overflow-x: hidden;
-      width: 100%;
-      max-width: 100%;
-    }
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f8f6ff; /* Soft lavender background */
-      color: #333;
-      line-height: 1.5;
-      position: relative;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    img {
-      max-width: 100%;
-      display: block;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* WRAPPER */
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-      overflow-x: hidden; /* Prevent container overflow */
-    }
+        :root {
+            --accent: #92FFD2;
+            --accent-dark: #6de5b8;
+            --dark: #1a1a2e;
+            --dark-navy: #16213e;
+            --text-dark: #000000;
+            --text-medium: #4a4a4a;
+            --text-light: #757575;
+            --bg-white: #ffffff;
+            --bg-light: #f8f9fa;
+            --bg-lightest: #fafbfc;
+            --border: #e8e8e8;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            --spacing-3xl: 6rem;
+        }
 
-    /* HEADER */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 0;
-      flex-wrap: wrap; /* Allow wrapping on mobile */
-      gap: 1rem;
-    }
-    .logo {
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: #9B51E0; /* Purple accent */
-    }
-    .logo img {
-  height: 40px; /* Adjust size of the logo */
-  width: auto;
-    }
-    .logo-footer img{
-  height: 90px; /* Adjust size of the logo */
-  width: auto;
-    }
-    nav ul {
-      display: flex;
-      gap: 1rem;
-      list-style: none;
-    }
-    nav a {
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    nav a:hover {
-      color: #7e42bb;
-    }
-    .btn-header {
-      padding: 0.6rem 1.2rem;
-      border-radius: 30px;
-      background: #b68aff;
-      color: #fff;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-    .btn-header:hover {
-      background: #a07ce0;
-    }
+        html {
+            overflow-x: hidden;
+        }
 
-    /* HERO (Single Image) */
-    .hero {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-/*      padding: 3rem 0;*/
-      gap: 2rem;
-    }
-    .hero-content {
-      flex: 1;
-      padding-right: 2rem;
-      min-width: 0; /* Prevent flex overflow */
-    }
-    .hero-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-      color: #333;
-    }
-    .hero-subtitle {
-      font-size: 1rem;
-      color: #666;
-      max-width: 500px;
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-    .hero-cta {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background: #b68aff;
-      color: #fff;
-      border-radius: 30px;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-    .hero-cta:hover {
-      background: #a07ce0;
-    }
-    .hero-image {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      min-width: 0; /* Prevent flex overflow */
-    }
-    .hero-image img {
-/*      border-radius: 1rem;*/
-/*      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);*/
-      width: 100%;
-      height: auto;
-      max-width: 700px;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-white);
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+            padding-top: 60px;
+        }
 
-    /* BRAND LOGOS */
-    .brands {
-      text-align: center;
-      padding: 3rem 0;
-    }
-    .brands h2 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    .brands-subtitle {
-      max-width: 600px;
-      margin: 0.5rem auto 2rem auto;
-      font-size: 0.95rem;
-      color: #666;
-      line-height: 1.6;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+            width: 100%;
+        }
 
-    .brand-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 1rem;
-      margin-top: 2rem;
-   justify-content: center; /* Centers horizontally */
-  align-content: center;
-  place-content: center;
-    }
-    .brand-card {
-      background: #fff;
-        /* Force the image to be clipped within the rounded corners: */
-      overflow: hidden;
-      border-radius: 0.75rem;
-      height: 70px;
-      width: 100%; /* Changed from fixed 120px */
-      max-width: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .brand-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
-      border-radius: 0.75rem;
-    }
-    .brand-card img {
+        /* Prevent any section from causing horizontal scroll */
+        section {
+            overflow-x: hidden;
+            width: 100%;
+        }
 
-     width: 100%;
-  height: 100%;
-  object-fit: cover; /* or 'contain' if you prefer letterboxing */
-  display: block;
-    }
+        /* Header */
+        header {
+            padding: 0.75rem 0;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1000;
+        }
 
-    /* PHONE FEATURES */
-    .phone-features {
-      padding: 3rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .feature-column {
-      flex: 1;
-      min-width: 200px;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      justify-content: center;
-    }
-    .feature-item h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #333;
-      margin-bottom: 0.3rem;
-    }
-    .feature-item p {
-      color: #666;
-      font-size: 0.9rem;
-      line-height: 1.4;
-      margin-bottom: 0;
-    }
-    .phone-mockup {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-    }
-    .phone-mockup img {
-      max-width: 450px;
-      border-radius: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* HOW IT WORKS */
-    .how-it-works {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 2rem;
-      padding: 3rem 0;
-    }
-    .hiw-left,
-    .hiw-right {
-      flex: 1;
-    }
-    .hiw-left img {
-      max-width: 550px;
-      border-radius: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
-    .hiw-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    .hiw-steps {
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: start;
-      gap: 0.75rem;
-    }
-    .hiw-steps span {
-      background: #b68aff;
-      color: #fff;
-      padding: 0.4rem 0.8rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
-    }
-    .hiw-steps p {
-      color: #555;
-      line-height: 1.6;
-      font-size: 0.95rem;
-      margin-top: 0.15rem;
-    }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+        .logo img {
+            height: 40px; /* Adjust size of the logo */
+            width: auto;
+              }
 
-    /* TESTIMONIALS - CONTINUOUS CAROUSEL */
-    .testimonials {
-      padding: 3rem 0;
-      text-align: center;
-      overflow: hidden; /* Critical for containing carousel */
-    }
-    .testimonials h2 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    .stars {
-  color: #f6c945; /* Gold color for stars */
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-    .testimonials-subtitle {
-      max-width: 600px;
-      margin: 0 auto 2rem auto;
-      font-size: 0.95rem;
-      color: #666;
-      line-height: 1.6;
-    }
+        .nav {
+            display: none;
+            gap: var(--spacing-lg);
+        }
 
-    .carousel-container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      overflow: hidden;
-      position: relative;
-    }
-    .carousel-track {
-      display: flex;
-      white-space: nowrap;
-      transition: none; /* We'll animate via JS */
-    }
-    .testimonial {
-      flex-shrink: 0;
-      width: 300px;
-      margin-right: 1rem; /* visible gap between cards */
-      box-sizing: border-box;
-    }
-    .testimonial-inner {
-      background: #fff;
-      border-radius: 1rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      padding: 1.5rem;
-      min-height: 160px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .testimonial-text {
-      font-size: 0.9rem;
-      color: #333;
-      margin-bottom: 0.5rem;
-      line-height: 1.4;
-      white-space: normal;
-      word-wrap: break-word;
-    }
-    .testimonial-author {
-      font-weight: 700;
-      color: #111;
-      font-size: 0.9rem;
-      text-align: right;
-    }
-    .quote-icon {
-      font-size: 1.2rem;
-      color: #b68aff;
-      margin-right: 0.3rem;
-    }
+        .nav a {
+            color: var(--text-medium);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
 
-    /* SHARE SECTION */
-    .share-section {
-      padding: 2rem 1rem;
-      text-align: center;
-      background: #fff;
-      border-radius: 1rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      margin: 3rem 0;
-    }
-    .share-section h2 {
-      font-size: 1.7rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    .share-section p {
-      max-width: 500px;
-      margin: 0 auto 2rem auto;
-      color: #666;
-      line-height: 1.6;
-      font-size: 0.95rem;
-    }
-    .share-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .share-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: #b68aff;
-      color: #fff;
-      padding: 0.7rem 1.4rem;
-      border-radius: 30px;
-      font-weight: 600;
-      transition: background 0.2s;
-      cursor: pointer;
-    }
-    .share-btn:hover {
-      background: #a07ce0;
-    }
+        .nav a:hover {
+            color: var(--text-dark);
+        }
 
-    /* GET THE APP SECTION */
-    .get-app-section {
-      background: #fff;
-      padding: 3rem 2rem;
-      border-radius: 1rem;
-      margin-top: 2rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 2rem;
-    }
-    .get-app-content {
-      flex: 1;
-    }
-    .get-app-title {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    .get-app-subtitle {
-      font-size: 1rem;
-      color: #666;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-      max-width: 500px;
-    }
-    .store-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .store-btn img {
-      width: 150px;
-      height: auto;
-      transition: transform 0.2s;
-    }
-    .store-btn:hover img {
-      transform: scale(1.05);
-    }
-    .get-app-image {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-    }
-    .get-app-image img {
-      max-width: 300px;
-      border-radius: 1rem;
-    }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            padding: 0.875rem 1.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            min-height: 44px;
+            white-space: nowrap;
+        }
 
-    /* FOOTER */
-    footer {
-      background-color: #f2f2f2;
-      margin-top: 2rem;
-      padding: 2rem 0;
-    }
-    .footer-content {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: space-between;
-    }
-    .footer-column {
-      flex: 1;
-      min-width: 150px;
-    }
-    .footer-column h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: #333;
-    }
-    .footer-column ul {
-      list-style: none;
-    }
-    .footer-column li a {
-      color: #666;
-      font-size: 0.95rem;
-      display: inline-block;
-      margin-bottom: 0.5rem;
-    }
-    .footer-column li a:hover {
-      color: #9B51E0;
-    }
-    .footer-bottom {
-      text-align: center;
-      margin-top: 2rem;
-      color: #666;
-      font-size: 0.9rem;
-    }
+        .btn-primary {
+            background: var(--accent);
+            color: var(--text-dark);
+            box-shadow: 0 2px 8px rgba(146, 255, 210, 0.3);
+        }
 
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .hero {
-        flex-direction: column;
-      }
-      .hero-content {
-        padding-right: 0;
-        text-align: center;
-      }
-      .hero-image img {
-        max-width: 250px;
-      }
-      .phone-features {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-      .feature-column {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .feature-item {
-        width: 45%;
-        margin: 1rem 0;
-      }
-      .how-it-works {
-        flex-direction: column;
-        text-align: center;
-      }
-      .testimonial {
-        width: 200px; /* narrower on mobile */
-      }
-      .get-app-section {
-        flex-direction: column;
-        text-align: center;
-      }
-      .get-app-image img {
-        max-width: 200px;
-      }
-    }
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(146, 255, 210, 0.4);
+        }
 
-    /* ADDITIONAL MOBILE FIXES */
-    @media (max-width: 768px) {
-      /* Fix images to not overflow */
-      .hero-image img,
-      .phone-mockup img,
-      .hiw-left img,
-      .get-app-image img {
-        width: 100%;
-        height: auto;
-        max-width: 100%;
-      }
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--text-dark);
+            border: 2px solid var(--border);
+        }
 
-      /* Stop carousel animation on mobile to prevent overflow */
-      .carousel-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
+        .btn-secondary:hover {
+            border-color: var(--text-medium);
+        }
 
-      .carousel-track {
-        animation: none !important;
-      }
+        /* Hero Section - Klarna Layout: Phone Centered, Text Overlays */
+        .hero {
+            background: var(--dark-navy);
+            color: white;
+            padding: var(--spacing-lg) 0 0 0;
+            overflow: hidden;
+            min-height: 95vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
 
-      /* Ensure brand cards scale properly */
-      .brand-grid {
-        padding: 0 0.5rem;
-      }
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 85vh;
+        }
 
-      /* Stack navigation on mobile */
-      nav ul {
-        flex-wrap: wrap;
-      }
-    }
-  </style>
+        /* Phone in CENTER - main focal point - MUCH BIGGER */
+        .hero-visual {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .hero-visual img {
+            width: auto;
+            height: 90vh;
+            max-height: 900px;
+            min-height: 600px;
+            display: block;
+            filter: drop-shadow(0 30px 80px rgba(0, 0, 0, 0.6));
+        }
+
+        /* Text overlays LEFT - FAR from phone */
+        .hero-content {
+            position: absolute;
+            left: 1%;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 280px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            line-height: 1.05;
+            margin-bottom: 0;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Stats/description overlays RIGHT - FAR from phone */
+        .hero-side-content {
+            position: absolute;
+            right: 1%;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 280px;
+            z-index: 2;
+        }
+
+        /* Buttons also positioned RIGHT, below side content */
+        .hero-buttons {
+            position: absolute;
+            right: 1%;
+            top: 50%;
+            transform: translateY(calc(-50% + 160px));
+            display: flex;
+            /* flex-direction: column; */
+            gap: var(--spacing-sm);
+            max-width: 280px;
+            z-index: 2;
+        }
+
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+            font-size: 0.9375rem;
+        }
+
+        .stars {
+            color: var(--accent);
+            font-size: 1.125rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.5;
+        }
+
+        /* Mobile: Stack layout like Klarna */
+        @media (max-width: 767px) {
+            .hero {
+                min-height: 100vh;
+                padding: var(--spacing-lg) 0;
+                padding-top: 2em;
+            }
+
+            .hero-container {
+                position: static;
+                display: block;
+                padding: 0;
+            }
+
+            /* Headline */
+            .hero-content {
+                position: static;
+                transform: none;
+                max-width: 100%;
+                text-align: center;
+                margin-bottom: var(--spacing-md);
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-bottom: 0;
+            }
+
+            /* Stars and subtitle */
+            .hero-side-content {
+                position: static;
+                transform: none;
+                max-width: 100%;
+                text-align: center;
+                margin-bottom: var(--spacing-xl);
+            }
+
+            .hero-stats {
+                justify-content: center;
+                margin-bottom: var(--spacing-md);
+            }
+
+            .hero .subtitle {
+                font-size: 1rem;
+                margin-bottom: 0;
+            }
+
+            /* Phone */
+            .hero-visual {
+                position: static;
+                transform: none;
+                text-align: center;
+                /* margin-bottom: var(--spacing-xl); */
+            }
+
+            .hero-visual img {
+                height: 55vh;
+                max-height: 550px;
+                min-height: 450px;
+            }
+
+            /* Buttons at bottom */
+            .hero-buttons {
+                position: static !important;
+                transform: none !important;
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+                flex-direction: column;
+            }
+        }
+
+        /* Feature Cards with Hover */
+        .feature-cards-section {
+            padding: var(--spacing-2xl) 0;
+            background: var(--bg-white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-dark);
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-medium);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .feature-cards {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .feature-card {
+            background: var(--bg-lightest);
+            border-radius: 24px;
+            padding: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 25%;  /* Normal: each card takes equal space */
+        }
+
+        /* 🎛️ ADJUST EXPANSION: Change flex value to make hovered card take MORE space (try 1.8, 2, 2.5) */
+        .feature-card:hover {
+            flex: 1.6 1 40%;  /* Hovered card takes MORE actual space */
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+
+        /* 🎛️ ADJUST CONTRACTION: Change flex value to make other cards take LESS space (try 0.7, 0.6, 0.5) */
+        /* Other cards shrink to fill remaining space */
+        .feature-cards:has(.feature-card:hover) .feature-card:not(:hover) {
+            flex: 0.8 1 20%;  /* Non-hovered cards take LESS actual space */
+        }
+
+        .feature-card-image {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card:hover .feature-card-image img {
+            transform: scale(1.1);
+        }
+
+        .feature-card-content {
+            padding: var(--spacing-lg);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+            display: none;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-dark);
+        }
+
+        .feature-card p {
+            color: var(--text-medium);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Features Grid Section */
+        .features-section {
+            padding: var(--spacing-3xl) 0;
+            background: var(--bg-light);
+        }
+
+        .features-list {
+            display: grid;
+            gap: var(--spacing-2xl);
+        }
+
+        .feature-row {
+            display: grid;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+
+        /* Mobile: Image ABOVE text */
+        @media (max-width: 767px) {
+            .feature-row {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .feature-image {
+                order: 1;  /* Image first (above) */
+            }
+
+            .feature-text {
+                order: 2;  /* Heading, text, button below */
+            }
+        }
+
+        .feature-text h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.02em;
+        }
+
+        .feature-text p {
+            font-size: 1.125rem;
+            color: var(--text-medium);
+            line-height: 1.7;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-image {
+            background: var(--bg-lightest);
+            border-radius: 24px;
+            /* padding: var(--spacing-2xl); */
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: var(--spacing-3xl) 0;
+            background: var(--dark-navy);
+            color: white;
+            text-align: center;
+        }
+
+        .video-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.02em;
+        }
+
+        .video-section p {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: var(--spacing-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            width: 100%;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(146, 255, 210, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        /* Testimonials Carousel */
+        .testimonials-section {
+            padding: var(--spacing-3xl) 0;
+            background: var(--bg-white);
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .testimonials-carousel {
+            display: flex;
+            gap: var(--spacing-md);
+            animation: scroll 30s linear infinite;
+            width: fit-content;
+            will-change: transform;
+        }
+
+        .testimonials-carousel:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .testimonial-card {
+            background: var(--dark-navy);
+            color: white;
+            border-radius: 24px;
+            padding: var(--spacing-xl);
+            min-width: 300px;
+            max-width: 300px;
+            flex-shrink: 0;
+        }
+
+        .testimonial-stars {
+            color: var(--accent);
+            font-size: 1.125rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .testimonial-text {
+            font-size: 1.0625rem;
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            font-size: 0.9375rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Brands Section */
+        .brands-section {
+            padding: var(--spacing-3xl) 0;
+            background: var(--bg-light);
+            text-align: center;
+        }
+
+        .brands-section h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .brand-logo {
+            padding: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.9375rem;
+        }
+
+        .brand-logo img {
+            max-width: 100%;
+            height: auto;
+            max-height: 60px;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+
+        .brand-logo img:hover {
+            opacity: 1;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: var(--spacing-3xl) 0;
+            background: var(--bg-white);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: var(--spacing-lg) 0;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.2s;
+        }
+
+        .faq-question:hover {
+            color: var(--accent-dark);
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+            color: var(--text-medium);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer-content {
+            padding-bottom: var(--spacing-lg);
+            color: var(--text-medium);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: var(--spacing-3xl) 0;
+            background: var(--bg-light);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.02em;
+        }
+
+        .cta-section p {
+            font-size: 1.125rem;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+            align-items: center;
+        }
+        .store-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1rem;
+        }
+        .store-btn img {
+          width: 150px;
+          height: auto;
+          transition: transform 0.2s;
+        }
+        .store-btn:hover img {
+          transform: scale(1.05);
+        }
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: rgba(255, 255, 255, 0.8);
+            padding: var(--spacing-2xl) 0 var(--spacing-lg);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-sm) var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            padding-top: var(--spacing-md);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: var(--spacing-md);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .testimonial-card {
+                min-width: 280px;
+                max-width: 280px;
+                padding: var(--spacing-md);
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .feature-cards-section,
+            .features-section,
+            .video-section,
+            .testimonials-section,
+            .brands-section,
+            .faq-section,
+            .cta-section {
+                padding: var(--spacing-xl) 0;
+            }
+
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 100%;
+                padding: 1rem 1.5rem;
+                font-size: 0.9375rem;
+            }
+
+            .hero-buttons,
+            .cta-buttons {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .feature-cards {
+                flex-direction: column;
+            }
+
+            .feature-card {
+                flex: 1 1 100%;
+            }
+
+            .feature-card:hover {
+                flex: 1 1 100%;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .nav {
+                display: flex;
+            }
+
+            .testimonial-card {
+                min-width: 400px;
+                max-width: 400px;
+            }
+
+            .hero {
+                min-height: 100vh;
+                padding: 0;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+                line-height: 1;
+            }
+
+            .hero .subtitle {
+                font-size: 1.125rem;
+            }
+
+            .hero-visual img {
+                height: 85vh;
+                max-height: 850px;
+            }
+
+            .hero-content {
+                left: 2%;
+                max-width: 320px;
+            }
+
+            .hero-side-content {
+                right: 0%;
+                max-width: 300px;
+            }
+
+            .hero-buttons {
+                right: 2%;
+                max-width: 300px;
+                transform: translateY(calc(-50% + 180px));
+            }
+
+            .hero-stats {
+                justify-content: flex-start;
+            }
+
+            .hero-buttons {
+                align-items: flex-start;
+            }
+
+            .feature-cards {
+                flex-wrap: wrap;
+            }
+
+            .feature-card {
+                flex: 1 1 calc(50% - var(--spacing-md) / 2);
+                min-height: 450px;
+            }
+
+            .feature-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .feature-row:nth-child(even) .feature-text {
+                order: 2;
+            }
+
+            .cta-buttons {
+                flex-direction: row;
+            }
+
+            .brands-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .feature-cards-section,
+            .features-section,
+            .video-section,
+            .testimonials-section,
+            .brands-section,
+            .faq-section,
+            .cta-section {
+                padding: var(--spacing-2xl) 0;
+            }
+
+            .container {
+                padding: 0 var(--spacing-md);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 {
+                font-size: 4.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.25rem;
+            }
+
+            .hero-visual img {
+                height: 90vh;
+                max-height: 900px;
+            }
+
+            .hero-content {
+                left: 3%;
+                max-width: 360px;
+            }
+
+            .hero-side-content {
+                right: 3%;
+                max-width: 340px;
+            }
+
+            .hero-buttons {
+                right: 3%;
+                max-width: 340px;
+                transform: translateY(calc(-50% + 200px));
+            }
+
+            .feature-cards {
+                flex-wrap: nowrap;
+            }
+
+            .feature-card {
+                flex: 1 1 25%;
+                min-height: 480px;
+            }
+
+            .brands-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+            .feature-cards-section,
+            .features-section,
+            .video-section,
+            .testimonials-section,
+            .brands-section,
+            .faq-section,
+            .cta-section {
+                padding: var(--spacing-3xl) 0;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .hero h1 {
+                font-size: 5rem;
+            }
+
+            .hero-visual img {
+                height: 92vh;
+                max-height: 920px;
+            }
+
+            .hero-content {
+                left: 4%;
+                max-width: 400px;
+            }
+
+            .hero-side-content {
+                right: 4%;
+                max-width: 380px;
+            }
+
+            .hero-buttons {
+                right: 4%;
+                max-width: 380px;
+                transform: translateY(calc(-50% + 220px));
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .hero h1 {
+                font-size: 5.5rem;
+            }
+
+            .hero-visual img {
+                height: 95vh;
+                max-height: 950px;
+            }
+
+            .hero-content {
+                left: 5%;
+                max-width: 440px;
+            }
+
+            .hero-side-content {
+                right: 5%;
+                max-width: 420px;
+            }
+
+            .hero-buttons {
+                right: 5%;
+                max-width: 420px;
+                transform: translateY(calc(-50% + 240px));
+            }
+        }
+
+            .hero-buttons {
+                right: 10%;
+                transform: translateY(calc(-50% + 240px));
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
+<!--
 
-    <!-- HEADER -->
+###########################################################
+#  This isn't Hawkins, Nothing strange going on here.     #
+#  but since you're exploring, say Hi                     #
+#  at hello (at) triberewardsapp (dot) com                #
+###########################################################
+                __
+    ,__.      <__)
+    `- |________7
+       |`.      |\
+    ._-|. \     |.\-_.
+   /   j \ `.7__j__\  \
+  |   o   | (o)____O)  |
+   \     /   J  \     /
+    `-_-'        `-_-'
+
+-->
+
+    <!-- Header -->
     <header>
-      <div class="logo">
-        <img
-            src="images/logo-small.png"
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">  <img
+            src="web_assets/logo-small.png"
             alt=""
-          />
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#brands">Brands</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#how-it-works">How It Works</a></li>
-          <li><a href="#testimonials">Testimonials</a></li>
-        </ul>
-      </nav>
-      <!-- <a href="#get-the-app" class="btn-header">Download</a> -->
+          /></a>
+                <nav class="nav">
+                    <a href="#how-it-works">How it works</a>
+                    <a href="#features">Features</a>
+                    <a href="#faq">FAQ</a>
+                </nav>
+                <a href="#download" class="btn btn-primary">Download free</a>
+            </div>
+        </div>
     </header>
 
-    <!-- HERO SECTION (Single Image) -->
-    <section id="home" class="hero">
-            <div class="hero-image">
-        <img
-          src="images/hero.png"
-          alt="Loyalty App Hero"
-        />
-      </div>
-      <div class="hero-content">
-        <h1 class="hero-title">
-          The All-In-One Loyalty Card App
-        </h1>
-        <p class="hero-subtitle">
-          Store all your reward and membership cards on your phone.
-          Discover the easiest way to collect points, coupons, and more—right at checkout.
-        </p>
-             <div class="store-buttons">
-          <!-- Apple Store -->
-          <a href="https://apps.apple.com/us/app/tribe-rewards-digital-wallet/id1495876209?itsct=apps_box_badge&itscg=30200" class="store-btn">
-            <img
-              src="images/apple-store.png"
-              alt="Download on the App Store"
-            />
-          </a>
-          <!-- Google Play -->
-           <a href="https://play.google.com/store/apps/details?id=com.triberewardsapp.tribe" class="store-btn">
-            <img
-              src="images/playstore.png"
-              alt="Get It on Google Play"
-            />
-          </a>
-          <!-- Huawei Play -->
-           <a href="https://url.cloud.huawei.com/udHOZUtfAk?shareTo=qrcode" class="store-btn">
-            <img
-              src="images/Huawei.png"
-              alt="Get It on Huawei App Gallery"
-            />
-          </a>
-        </div>
-      </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-container">
+                <!-- Left: Headline -->
+                <div class="hero-content">
+                    <h1>Never forget your loyalty cards again</h1>
+                </div>
 
+                <!-- Right: Stats, description -->
+                <div class="hero-side-content">
+                    <div class="hero-stats">
+                        <span class="stars">★★★★★</span>
+                        <span>4.8/5 in the App Store</span>
+                    </div>
+
+                    <p class="subtitle">Store all your rewards cards on your phone. Scan barcodes at checkout. Works offline, no signal needed.</p>
+                </div>
+
+                <!-- Center: Phone (main focal point) -->
+                <div class="hero-visual">
+                    <img src="web_assets/hero.png" alt="Tribe Rewards app showing loyalty cards on phone">
+                </div>
+
+                <!-- Buttons (desktop: inside right content, mobile: after phone) -->
+
+                <div class="hero-buttons" id="hero">
+                    <!-- Apple Store -->
+                    <a href="https://apps.apple.com/us/app/tribe-rewards-digital-wallet/id1495876209?itsct=apps_box_badge&itscg=30200" class="store-btn">
+                      <img
+                        src="web_assets/apple-store.png"
+                        alt="Download on the App Store"
+                      />
+                    </a>
+                    <!-- Google Play -->
+                     <a href="https://play.google.com/store/apps/details?id=com.triberewardsapp.tribe" class="store-btn">
+                      <img
+                        src="web_assets/playstore.png"
+                        alt="Get It on Google Play"
+                      />
+                    </a>
+                    <!-- Huawei Play -->
+                     <a href="https://url.cloud.huawei.com/udHOZUtfAk?shareTo=qrcode" class="store-btn">
+                      <img
+                        src="web_assets/Huawei.png"
+                        alt="Get It on Huawei App Gallery"
+                      />
+                    </a>
+                  </div>
+            </div>
+        </div>
     </section>
 
-    <!-- BRAND LOGOS -->
-    <section id="brands" class="brands">
-      <h2>Add Cards From Your Favorite Brands</h2>
-      <p class="brands-subtitle">
-        Easily scan rewards cards from these popular stores and hundreds more.
-      </p>
-      <div class="">
-      <div class="brand-grid">
-        <!-- Example brand logos -->
-        <div class="brand-card">
-          <img
-            src="images/brands/za/checkers.png"
-            alt="checkers"
-          />
+    <!-- Feature Cards with Hover -->
+    <section class="feature-cards-section" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>Use Tribe Rewards anywhere you shop</h2>
+            </div>
+
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-card-image">
+                        <img src="web_assets/feature-store-all-cards.png" alt="Store all loyalty cards in one app">
+                    </div>
+                    <div class="feature-card-content">
+                        <h3>Store all cards</h3>
+                        <p>Add every loyalty card to one app. Your phone becomes your wallet.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-image">
+                        <img src="web_assets/feature-scan-card.png" alt="Scan your physical card or import from an image">
+                    </div>
+                    <div class="feature-card-content">
+                        <h3>Digitize your cards</h3>
+                        <p>Scan your physical card or import from an image</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-image">
+                        <img src="web_assets/feature-add-brands.png" alt="Add your favourite Brands">
+                    </div>
+                    <div class="feature-card-content">
+                        <h3>Add your favourite Brands</h3>
+                        <p>Choose from over 5000+ brands</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-image">
+                        <img src="web_assets/feature-scan-at-checkout.png" alt="Scan your Card at checkout">
+                    </div>
+                    <div class="feature-card-content">
+                        <h3>Scan your Card</h3>
+                        <p>Works exactly like your plastic card. Scan and earn points.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="brand-card">
-          <img
-            src="images/brands/za/virginactive.png"
-            alt=""
-          />
-        </div>
-        <div class="brand-card">
-          <img
-            src="images/brands/za/mrprice.png"
-            alt=""
-          />
-        </div>
-        <div class="brand-card">
-          <img
-            src="images/brands/za/exclusivebooks.png"
-            alt=""
-          />
-        </div>
-        <div class="brand-card">
-          <img
-            src="images/brands/za/clicks.png"
-            alt=""
-          />
-        </div>
-        <div class="brand-card">
-          <img
-            src="images/brands/za/woolworths.png"
-            alt=""
-          />
-        </div>
-        <div class="brand-card">
-          <img
-            src="images/brands/za/dischem.png"
-            alt=""
-          />
-        </div>
-        <div class="brand-card">
-          <img
-            src="images/brands/za/makro.png"
-            alt=""
-          />
-        </div>
-      </div>
-    </div>
     </section>
 
-    <!-- PHONE FEATURES -->
-    <section id="features" class="phone-features">
-      <!-- Left column of bullet items -->
-      <div class="feature-column">
-        <div class="feature-item">
-          <h3>Fast</h3>
-          <p>Add cards in seconds & enjoy lightning speed using your loyalty cards.</p>
-        </div>
-        <div class="feature-item">
-          <h3>Clean</h3>
-          <p>No ads, no tracking—just your cards.</p>
-        </div>
-        <div class="feature-item">
-          <h3>Easy</h3>
-          <p>Intuitively designed with SA's most loved brands.</p>
-        </div>
-      </div>
+    <!-- Detailed Features -->
+    <section class="features-section">
+        <div class="container">
+            <div class="features-list" id ="features">
+                <div class="feature-row">
+                    <div class="feature-text">
+                        <h3>Just One App</h3>
+                        <p>You don't need to install an app everytime you shop somewhere, Tribe brings all these memberships into one single app. Simplifying your memberships</p>
+                        <a href="#download" class="btn btn-primary">Download the app</a>
+                    </div>
+                    <div class="feature-image">
+                        <img src="https://media.istockphoto.com/id/1399214351/photo/lady-checking-out-with-digital-payment-at-the-counter.webp?a=1&b=1&s=612x612&w=0&k=20&c=spc0cy5M1T2MPxH3qeVz7ONd_zx1PUNIPPP6-lWYijE=" alt="Phone showing multiple loyalty cards in wallet" style="max-width: 100%; height: auto; border-radius: 16px;">
+                    </div>
+                </div>
 
-      <!-- Center Phone Mockup -->
-      <div class="phone-mockup">
-        <img
-          src="images/summary.png"
-          alt="Phone Mockup"
-        />
-      </div>
+                <div class="feature-row">
+                    <div class="feature-text">
+                        <h3>Add your cards in seconds</h3>
+                        <p>Scan the physical card, import the card from another app or enter the number manually. Powered by AI, Tribe makes it easy to add your cards quickly.</p>
+                        <a href="#download" class="btn btn-primary">Get started</a>
+                    </div>
+                    <div class="feature-image">
+                        <img src="web_assets/feature_all_cards.png" alt="Scanning loyalty card barcode at store checkout" style="max-width: 100%; height: auto; border-radius: 16px;">
+                    </div>
+                </div>
 
-      <!-- Right column of bullet items -->
-      <div class="feature-column">
-        <div class="feature-item">
-          <h3>Simple</h3>
-          <p>Quickly import store cards from other wallets, like Stocard.</p>
+                <div class="feature-row">
+                    <div class="feature-text">
+                        <h3>Works offline</h3>
+                        <p> No signal inside the store? No problem. Tribe allows you to access your cards even when you don't have access to a connection.</p>
+                        <a href="#download" class="btn btn-primary">Try it free</a>
+                    </div>
+                    <div class="feature-image">
+                        <img src="web_assets/feature-offline-mode.png" alt="App working in airplane mode with loyalty cards accessible" style="max-width: 100%; height: auto; border-radius: 16px;">
+                    </div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-text">
+                        <h3>Create custom cards or favourites</h3>
+                        <p>Mark your favourites for quick access, or create custom cards to keep gift vouchers or neighbourhood brands that you support.</p>
+                        <a href="#download" class="btn btn-primary">Get started</a>
+                    </div>
+                    <div class="feature-image">
+                        <img src="web_assets/feature_fav.png" alt="Scanning loyalty card barcode at store checkout" style="max-width: 100%; height: auto; border-radius: 16px;">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="feature-item">
-          <h3>Secure</h3>
-          <p>Your cards are linked to your account, even when you change phones.</p>
-        </div>
-        <div class="feature-item">
-          <h3>Versatile</h3>
-          <p>Store any barcode—loyalty, gift cards, coupons, and more.</p>
-        </div>
-      </div>
     </section>
 
-    <!-- HOW IT WORKS -->
-    <section id="how-it-works" class="how-it-works">
-      <div class="hiw-left">
-        <img
-          src="images/use_tribe.png"
-          alt="Tribe App Mockup"
-        />
-      </div>
-      <div class="hiw-right">
-        <h2 class="hiw-title">How It Works</h2>
-        <div class="hiw-steps">
-          <span>1</span>
-          <p>Download Tribe from the App Store or Google Play</p>
+    <!-- Video Section -->
+    <!-- <section class="video-section">
+        <div class="container">
+            <h2>See how it works</h2>
+            <p>Watch how easy it is to add your cards and use them at checkout</p>
+
+            <div class="video-container">
+                <iframe src="video-demo.mp4" allowfullscreen style="border: 0;"></iframe>
+                <!-- To use YouTube: Replace src with "https://www.youtube.com/embed/YOUR_VIDEO_ID" -->
+            </div>
         </div>
-        <div class="hiw-steps">
-          <span>2</span>
-          <p>Scan your loyalty cards using your phone camera.</p>
+    </section> -->
+
+    <!-- Testimonials Carousel -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Shoppers love Tribe Rewards</h2>
+                <p>Reasons people have ditched their bulky wallets and switched to Tribe</p>
+            </div>
         </div>
-        <div class="hiw-steps">
-          <span>3</span>
-          <p>Show your digital card at checkout to collect or redeem points.</p>
+
+        <div class="testimonials-carousel">
+            <!-- First set of testimonials -->
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Love how simple this is. Added all my cards in 5 minutes. No more digging through my wallet at the till!"</p>
+                <p class="testimonial-author">Sarah - Cape Town</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"The MVP on my phone for sure! This one just works."</p>
+                <p class="testimonial-author">James - New York</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Finally a simple app that doesn't bombard you ads. This is just clean and simple."</p>
+                <p class="testimonial-author">Sheldon - Stokholm</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Switched from Stocard and never looked back. Faster, cleaner, works when I have no signal. Perfect."</p>
+                <p class="testimonial-author">Nadia - Berlin</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Best part? It just works. No fuss, no complexity. Added my Dis-Chem and Woolies cards and done."</p>
+                <p class="testimonial-author">Lee - Paris</p>
+            </div>
+
+            <!-- Duplicate set for infinite scroll -->
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"This has changed how I do my shopping honestly! What a cool app"</p>
+                <p class="testimonial-author">Sam - Aukland</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"This has saved me so many times I lost count"</p>
+                <p class="testimonial-author">Jill - London </p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"I was a bit worried when Stocard left but I'm soooo happy Tribe is here now"</p>
+                <p class="testimonial-author">Gideon - Seattle </p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"It's the best! Thank you to the developers!"</p>
+                <p class="testimonial-author">Noel - Edinburgh</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"We need more apps like this! One's that are actually useful!"</p>
+                <p class="testimonial-author">Lisa - Tokyo</p>
+            </div>
         </div>
-        <div class="hiw-steps">
-          <span>4</span>
-          <p>Lighten your wallet and never lose out on points again</p>
-        </div>
-      </div>
     </section>
 
-    <!-- TESTIMONIALS - CONTINUOUS CAROUSEL (NO DUPLICATE) -->
-    <section id="testimonials" class="testimonials">
-      <h2>Hear Why People Love Tribe</h2>
-      <p class="testimonials-subtitle">
-        A continuous stream of real user feedback—scrolling slowly so you can read as it passes by.
-      </p>
+    <!-- Brands Section -->
+    <section class="brands-section">
+        <div class="container">
+            <h2>Works with your favourite brands</h2>
 
-      <div class="carousel-container" id="carouselContainer">
-        <div class="carousel-track" id="carouselTrack">
-          <!-- 10 items total -->
-          <div class="testimonial">
-            <div class="testimonial-inner">
-                <div class="stars">
-                  ★★★★★
-                </div>
-              <p class="testimonial-text">
-                <span class="quote-icon">“</span>Tribe saved me from carrying a dozen cards!
-              </p>
-              <p class="testimonial-author">- Glinda</p>
+            <div class="brands-grid">
+                <div class="brand-logo">Carrefour</div>
+                <div class="brand-logo">Target</div>
+                <div class="brand-logo">Tesco</div>
+                <div class="brand-logo">IKEA</div>
+                <div class="brand-logo">Coles</div>
+                <div class="brand-logo">Woolworths</div>
+                <div class="brand-logo">Costco</div>
+                <div class="brand-logo">CVS</div>
+                <div class="brand-logo">Mr Price</div>
+                <div class="brand-logo">Checkers</div>
+                <div class="brand-logo">Sportscene</div>
+                <div class="brand-logo">+ 1000s more</div>
             </div>
-          </div>
-          <div class="testimonial">
-            <div class="testimonial-inner">
-                <div class="stars">
-                  ★★★★★
-                </div>
-              <p class="testimonial-text">
-                <span class="quote-icon">“</span>My scanning speed at checkout is insane now!
-              </p>
-              <p class="testimonial-author">- Nadia</p>
-            </div>
-          </div>
-          <div class="testimonial">
 
-            <div class="testimonial-inner">
-                <div class="stars">
-                  ★★★★★
-                </div>
-              <p class="testimonial-text">
-                <span class="quote-icon">“</span>No more clutter in my wallet—this app is a lifesaver.
-              </p>
-              <p class="testimonial-author">- Erin</p>
-            </div>
-          </div>
-          <div class="testimonial">
-            <div class="testimonial-inner">
-                <div class="stars">
-                  ★★★★★
-                </div>
-              <p class="testimonial-text">
-                <span class="quote-icon">“</span>Love how easy it is to import cards from Stocard.
-              </p>
-              <p class="testimonial-author">- Leann</p>
-            </div>
-          </div>
-          <div class="testimonial">
-            <div class="testimonial-inner">
-                <div class="stars">
-                  ★★★★★
-                </div>
-              <p class="testimonial-text">
-                <span class="quote-icon">“</span>Great for gift cards, too. My wallet’s never been lighter.
-              </p>
-              <p class="testimonial-author">- Bonang</p>
-            </div>
-          </div>
-          <div class="testimonial">
-            <div class="testimonial-inner">
-                <div class="stars">
-                  ★★★★★
-                </div>
-              <p class="testimonial-text">
-                <span class="quote-icon">“</span>I never miss collecting points now—Tribe is awesome!
-              </p>
-              <p class="testimonial-author">- Jaco</p>
-            </div>
-          </div>
-          <div class="testimonial">
-            <div class="testimonial-inner">
-                <div class="stars">
-                  ★★★★★
-                </div>
-              <p class="testimonial-text">
-                <span class="quote-icon">“</span>Just scan & store. Couldn’t be simpler.
-              </p>
-              <p class="testimonial-author">- Alex</p>
-            </div>
-          </div>
-          <div class="testimonial">
-            <div class="testimonial-inner">
-                <div class="stars">
-                  ★★★★★
-                </div>
-              <p class="testimonial-text">
-                <span class="quote-icon">“</span>I also store my gift cards.
-              </p>
-              <p class="testimonial-author">- Tina</p>
-            </div>
-          </div>
-          <div class="testimonial">
-            <div class="testimonial-inner">
-                <div class="stars">
-                  ★★★★★
-                </div>
-              <p class="testimonial-text">
-                <span class="quote-icon">“</span>Couldn’t live without it. My everyday shopping companion!
-              </p>
-              <p class="testimonial-author">- Thabane</p>
-            </div>
-          </div>
-        </div> <!-- .carousel-track -->
-      </div> <!-- .carousel-container -->
-    </section>
-<section>
-  <img src="images/bg_people.png" alt="Brands and business owners love how Tribe brings their collective power together" >
-</section>
-    <!-- SHARE THIS SECTION -->
-    <section class="share-section">
-      <h2>Share Tribe With a Friend</h2>
-      <p>
-        Know someone juggling too many loyalty cards? Help them simplify their wallet—share Tribe below!
-      </p>
-<div class="share-buttons">
-  <button class="share-btn" onclick="shareEmail()">Share via Email</button>
-  <button class="share-btn" onclick="shareFacebook()">Share on Facebook</button>
-  <button class="share-btn" onclick="shareTwitter()">Share on Twitter</button>
-</div>
-    </section>
-
-    <!-- GET THE APP SECTION -->
-    <section id="get-the-app" class="get-app-section">
-      <div class="get-app-content">
-        <h2 class="get-app-title">Get Your New Mobile Wallet</h2>
-        <p class="get-app-subtitle">
-          Join over 49 million active consumers worldwide and download Tribe for free.
-        </p>
-        <div class="store-buttons">
-          <!-- Apple Store -->
-          <a href="https://apps.apple.com/us/app/tribe-rewards-digital-wallet/id1495876209?itsct=apps_box_badge&itscg=30200" class="store-btn">
-            <img
-              src="images/apple-store.png"
-              alt="Download on the App Store"
-            />
-          </a>
-          <!-- Google Play -->
-           <a href="https://play.google.com/store/apps/details?id=com.triberewardsapp.tribe" class="store-btn">
-            <img
-              src="images/playstore.png"
-              alt="Get It on Google Play"
-            />
-          </a>
-          <!-- Huawei Play -->
-           <a href="https://url.cloud.huawei.com/udHOZUtfAk?shareTo=qrcode" class="store-btn">
-            <img
-              src="images/Huawei.png"
-              alt="Get It on Huawei App Gallery"
-            />
-          </a>
+            <p style="margin-top: 2rem; color: var(--text-light); font-size: 0.875rem;">Tribe allows you to pick brands both local and global</p>
         </div>
-      </div>
-      <div class="get-app-image">
-        <img
-          src="images/img_1.png"
-          alt="Tribe App Phone Mockup"
-        />
-      </div>
     </section>
 
-  </div><!-- .container -->
+    <!-- Stocard Alternative Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>What happened to Stocard? We've got you covered.</h2>
+                <p>Stocard is no longer available. Klarna acquired them but focuses on payments, not loyalty cards. If you just want a simple wallet for your rewards cards and not be tied to a payment solution, Tribe Rewards is exactly what Stocard used to be: a dedicated loyalty card wallet with no distractions.</p>
+            </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container footer-content">
-      <div class="footer-column">
-        <div class="logo-footer">
-          <img
-              src="images/logo-full.png"
-              alt=""
-            />
+            <div class="features-list">
+                <div class="feature-row">
+                    <div class="feature-text">
+                        <h3>When out shopping</h3>
+                        <p>Buying that item you had your eye on, or a spur of the moment shopping spree. Tribe ensures you are never caught without your loyalty cards so you never miss out on those rewards.</p>
+                    </div>
+                    <div class="feature-image">
+                        <img src="https://media.istockphoto.com/id/2222257039/photo/young-woman-choosing-groceries-in-a-supermarket.webp?a=1&b=1&s=612x612&w=0&k=20&c=P3JV69Z5wJ9cq-bF3M8sysuysd781TKVNRijcaPrmtE=" alt="Tribe loyalty wallet compared to Klarna payment app" style="max-width: 100%; height: auto; border-radius: 16px;">
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-text">
+                        <h3>Eating out</h3>
+                        <p>Whether you're visiting your favourite restaurant or the coffee shop you go pass everyday, Tribe makes sure you get all the benefits you deserve.</p>
+                    </div>
+                    <div class="feature-image">
+                        <img src="https://plus.unsplash.com/premium_photo-1661757488161-09663f0558ee?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQ5fHxjaGVja291dHxlbnwwfHwwfHx8MA%3D%3D" alt="Using loyalty cards offline in store with no signal" style="max-width: 100%; height: auto; border-radius: 16px;">
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-text">
+                        <h3>Membership clubs</h3>
+                        <p>Not all memberships are for shopping, some serve a different purpose. From your gym membership to the airline lounge, Tribe ensures you can claim what benefits are owed to you.</p>
+                    </div>
+                    <div class="feature-image">
+                        <img src="https://media.istockphoto.com/id/1080133154/photo/todays-day-will-be-spent-at-the-gym.webp?a=1&b=1&s=612x612&w=0&k=20&c=Vti-7BmG_860IFnBmgnWS7tsk14NaiRSyEv4fqxoEUA=" alt="Clean ad-free loyalty card wallet interface" style="max-width: 100%; height: auto; border-radius: 16px;">
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="footer-column">
-        <h3>Company</h3>
-        <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Help</a></li>
-          <li><a href="terms.html">Terms</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h3>Follow Us</h3>
-        <ul>
-          <li><a href="https://www.instagram.com/triberewards/">Instagram</a></li>
-          <li><a href="#">LinkedIn</a></li>
-          <li><a href="#">Facebook</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      © 2025 Tribe. All Rights Reserved.
-    </div>
-  </footer>
+    </section>
 
-  <!-- JS: Continuous Carousel With Spacing, No Duplicates -->
-  <script>
-  (function() {
-    const track = document.getElementById('carouselTrack');
-    const container = document.getElementById('carouselContainer');
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently asked questions</h2>
+            </div>
 
-    // Check if we're on mobile
-    const isMobile = window.innerWidth <= 768;
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What is Tribe Rewards?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Tribe Rewards is a loyalty card wallet app that lets you store, organise, and use all your loyalty and rewards cards in one place. Instead of carrying plastic cards or juggling multiple apps, you scan your cards once and use them directly from your phone.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Is Tribe a Stocard replacement?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes. Tribe is a simple, reliable Stocard alternative. If you used Stocard before, you can import your cards into Tribe and keep using them without missing rewards. Many users are switching to Tribe after Stocard shut down or stopped working properly.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Why use Tribe instead of carrying plastic cards?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                          With Tribe, you:<br/>
+                          <ul>
+<li>•	Never forget a loyalty card</li>
+<li>•	Never miss rewards or points</li>
+<li>•	Carry everything in one app</li>
+<li>•	Scan faster at checkout</li>
+<li>•	Reduce wallet clutter</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can I use Klarna instead?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            You can but is that what you want? After acquiring Stocard, Klarna had incorporated the ability to store loyalty cards in their app. However, many avoid using it because they don't have a need to use Klarna's payment solution which is what Klarna's main offering is. People are switching to Tribe to keep things simple, avoid being forced to use a payment method and choosing a more privacy focused option for their data since Stocard and Klarna monetise user data.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can I import my cards from Stocard or SuperCards?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Absolutely Yes. Tribe supports importing loyalty cards from Stocard, SuperCards or any other app that stores your loyalty cards, making it easy to switch without starting from scratch.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How do I use Tribe at checkout?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Simply open the app, select your loyalty card, and show the barcode to be scanned. You can also copy the barcode or membership number if you need to paste it somewhere online.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Which loyalty cards does Tribe support?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Tribe supports a wide range of loyalty and membership cards, including grocery stores, pharmacies, gyms, cafés, and retail brands. You can select brands that are local to your country or get a wider selection of brands from aroudn the world. If there is a brand we don't yet have, you can still add it as a custom card.
+                        </div>
+                    </div>
+                </div>
 
-    if (isMobile) {
-      // Mobile - make carousel scrollable horizontally
-      container.style.overflowX = 'auto';
-      container.style.webkitOverflowScrolling = 'touch';
-      return; // Don't run animation on mobile
+
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Is Tribe Rewards free?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes, Tribe Rewards is completely free to download and use. There are no hidden costs, no subscription fees, and no ads. We wan to be one less thing to worry about when shopping.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Will cashiers be able to scan my phone at checkout?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes. The barcodes in Tribe Rewards work exactly like your plastic loyalty cards. Some cashiers may have barcode scanners that can't read the phone screen, in which case you can show it to them to enter the number.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How do I add a loyalty card to the app?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Adding cards is simple. Open Tribe Rewards, tap "Add Card", then either scan your physical card with your camera, enter the card number manually or import from an image. The app automatically detects the barcode type.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can I add cards that aren’t listed in the app?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes. You can add custom loyalty cards by scanning the barcode or entering details manually, even if the brand isn’t listed yet. This is a great way to add your local neighbourhood brands or to even add other types of cards like a gift card voucher.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What happens if I lose my phone?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Your loyalty cards are linked to your account, so they stay with you no matter which phone you use. Wihtout account based cards, losing your phone or deleting the app is like losing the plastic cards, like we said before, we want to be one less thing to worry about.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can I use Tribe in different countries?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes. Tribe supports multiple countries, and you don't need to switch to a different country to access your cards once added.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Download Tribe Rewards today</h2>
+            <p>Join 50,000+ shoppers who ditched their bulky wallets</p>
+                  <div class="store-buttons" id="download">
+                      <!-- Apple Store -->
+                      <a href="https://apps.apple.com/us/app/tribe-rewards-digital-wallet/id1495876209?itsct=apps_box_badge&itscg=30200" class="store-btn">
+                        <img
+                          src="web_assets/apple-store.png"
+                          alt="Download on the App Store"
+                        />
+                      </a>
+                      <!-- Google Play -->
+                       <a href="https://play.google.com/store/apps/details?id=com.triberewardsapp.tribe" class="store-btn">
+                        <img
+                          src="web_assets/playstore.png"
+                          alt="Get It on Google Play"
+                        />
+                      </a>
+                      <!-- Huawei Play -->
+                       <a href="https://url.cloud.huawei.com/udHOZUtfAk?shareTo=qrcode" class="store-btn">
+                        <img
+                          src="web_assets/Huawei.png"
+                          alt="Get It on Huawei App Gallery"
+                        />
+                      </a>
+                    </div>
+            <!-- <div class="cta-buttons">
+                <a href="https://apps.apple.com/app/tribe-rewards" class="btn btn-primary">
+                    📱 Get it on iPhone
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.triberewards" class="btn btn-secondary">
+                    🤖 Get it on Android
+                </a>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="https://triberewardsapp.medium.com">Blog</a>
+                    <a href="/privacy-policy.html">Privacy Policy</a>
+                    <a href="/terms">Terms of Service</a>
+                </div>
+
+                <div class="footer-links" style="margin-top: 1rem;">
+                    <!-- <a href="/blog/what-happened-to-stocard">What Happened to Stocard?</a>
+                    <a href="/blog/stocard-replacement-app">Stocard Replacement App</a>
+                    <a href="/blog/digital-loyalty-card-wallet">Digital Loyalty Card Wallet Guide</a>
+                    <a href="/blog/store-loyalty-cards-on-phone">How to Store Loyalty Cards on Phone</a>
+                    <a href="/blog/offline-loyalty-card-app">Best Offline Loyalty Card App</a> -->
+                    <a href="#faq">FAQ</a>
+                </div>
+
+                <div class="footer-links" style="margin-top: 1.5rem;">
+                    <a href="https://facebook.com/triberewards" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://twitter.com/triberewards" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://instagram.com/triberewards" target="_blank" rel="noopener">Instagram</a>
+                    <a href="https://www.youtube.com/@triberewards" target="_blank" rel="noopener">YouTube</a>
+                    <a href="https://www.tiktok.com/@triberewards" target="_blank" rel="noopener">TikTok</a>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Tribe Rewards. Made for everyday shoppers.</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.75rem;">Digital loyalty card wallet | Store rewards cards on your phone | Barcode scanning app | Works offline | Stocard replacement | What happened to Stocard</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                const wasActive = faqItem.classList.contains('active');
+
+                // Close all FAQs
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Open clicked FAQ if it wasn't active
+                if (!wasActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Tribe Rewards",
+        "applicationCategory": "ShoppingApplication",
+        "operatingSystem": "iOS, Android",
+        "description": "Digital loyalty card wallet app that lets you store all your rewards cards on your phone and scan barcodes at checkout. Works offline with no ads.",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "50000",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Tribe Rewards"
+        }
     }
+    </script>
 
-    // Desktop - run animation
-    let speed = 1; // px per frame
-    let position = 0;
-
-    function step() {
-      // Shift track left by "speed" pixels
-      position -= speed;
-      track.style.transform = `translateX(${position}px)`;
-
-      // Check if the first item is fully out of view
-      const firstItem = track.children[0];
-      const itemRect = firstItem.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
-
-      // Calculate total width = item + margin
-      const itemStyles = window.getComputedStyle(firstItem);
-      const marginRight = parseFloat(itemStyles.marginRight) || 0;
-      const totalItemWidth = itemRect.width + marginRight;
-
-      if (itemRect.right < containerRect.left) {
-        // Re-append the first item to the end
-        track.appendChild(firstItem);
-        // Offset position to avoid jump
-        position += totalItemWidth;
-      }
-
-      requestAnimationFrame(step);
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Can I store loyalty cards on my phone?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Tribe Rewards lets you store all your loyalty and rewards cards digitally on your phone. Simply scan your cards into the app or typing in the number. Your cards are stored securely on your device and you can access them anytime, even without internet."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does the app work offline at checkout?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Absolutely. Tribe Rewards is designed to work offline. You don't need signal or wifi to scan barcodes at checkout. This makes it perfect for stores with poor reception."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "I used to use Stocard - is this similar?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Stocard is no longer available after being acquired by Klarna. Tribe Rewards fills the gap Stocard left - a simple, dedicated loyalty card wallet without payment features or subscriptions. If you just want to store your rewards cards and scan them at checkout, Tribe is exactly what you're looking for."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is Tribe Rewards free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, Tribe Rewards is completely free to download and use. There are no hidden costs, no subscription fees, and no ads. We believe everyone should have easy access to their loyalty cards without paying for it."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Will cashiers be able to scan my phone at checkout?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. The barcodes in Tribe Rewards work exactly like your plastic loyalty cards. The cashier scans your phone screen just like they would scan a physical card. It's fast, reliable, and accepted at all major stores."
+                }
+            }
+        ]
     }
+    </script>
 
-    requestAnimationFrame(step);
-  })();
-
-  function shareEmail() {
-  const subject = encodeURIComponent("Check out this awesome app!");
-  const body = encodeURIComponent("Hi, I found this app and thought you'd like it. If you looking for a reliable app to store your loyalty cards! Check it out: www.triberewardsapp.com");
-  window.location.href = `mailto:?subject=${subject}&body=${body}`;
-}
-
-function shareFacebook() {
-  const url = encodeURIComponent("www.triberewardsapp.com");
-  const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-  window.open(fbShareUrl, "_blank");
-}
-
-function shareTwitter() {
-  const url = encodeURIComponent("www.triberewardsapp.com");
-  const text = encodeURIComponent("Looking to store your cloyalty cards on your phone. Check out the tribe rewards app I found!");
-  const twitterShareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
-  window.open(twitterShareUrl, "_blank");
-}
-  </script>
-
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Tribe Rewards",
+        "url": "https://triberewardsapp.app",
+        "logo": "https://triberewards.app/logo.png",
+        "sameAs": [
+            "https://www.facebook.com/triberewards/",
+            "https://x.com/tribe_rewards",
+            "https://www.instagram.com/triberewards",
+            "https://www.youtube.com/@TribeRewardsApp",
+            "https://www.tiktok.com/@tribe.rewards"
+        ]
+    }
+    </script>
 </body>
 </html>
